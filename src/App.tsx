@@ -36,7 +36,8 @@ function App() {
   };
   return (
     <>
-      <div className="bg-green-300 w-full p-5">Scheduler Component</div>
+  
+      <div className="bg-green-300  p-5 ">Scheduler Component</div>
       <div>
         <Scheduler groupData={employeeDatas} handleExpand={handleExpand} />
       </div>
