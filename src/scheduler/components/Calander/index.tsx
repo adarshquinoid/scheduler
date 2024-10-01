@@ -32,9 +32,11 @@ const Calander = ({ groups = [] }: any) => {
   
   const checkForRows = (grp: any) => {
     const isTopLevel = grp.parent === null;
+    //TODO - Make it dynamic with multiple parent support
     const isTopLevelExpanded=groups?.find(
       (item: any) => item.parent === null
     )?.expand;
+    // TODO-END
     const isParentExpanded = groups?.find(
       (item: any) => item.id === grp.parent
     )?.expand;
