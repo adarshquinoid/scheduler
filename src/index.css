@@ -1,0 +1,14 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.scheduler table tbody tr td{
+
+  @apply text-[14px] font-normal leading-4 border border-[#EDEAE9]
+  
+}
+
+.tree-section-head{
+  border:1px solid #EDEAE9;
+  height: 68.68px;
+}
