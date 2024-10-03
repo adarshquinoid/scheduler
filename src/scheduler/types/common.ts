@@ -5,7 +5,7 @@ export type CalendarRef=any;
 export type TreeProps=any;
 export type TreeRef=any;
 
-export type CalanderColumnType={
+export type CalendarColumnType={
     date:Date,
     isHoliday:boolean,
     isCurrentDay:boolean

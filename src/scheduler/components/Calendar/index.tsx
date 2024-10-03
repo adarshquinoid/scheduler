@@ -1,41 +1,52 @@
 import dayjs from "dayjs";
 import { useState } from "react";
 import { Months, styles } from "../../helpers/constants";
-import { CalanderColumnType } from "../../types/common";
+import { CalendarColumnType } from "../../types/common";
 import { Group } from "../../types/datastructure";
 import EventItem from "../EventItems";
 
 const Calendar = ({ groups = [] }: any) => {
-  const [activeYear] = useState(2024);
+  const [selectedYear] = useState(2024);
   const [dragSample, setDragSample] = useState("");
   const [newPosition, setNewPostion] = useState("01-01-2024");
 
-  const generateDatesByMonth = (): any => {
-    const datesByMonth: any = {};
+  const generateDatesByMonth = (
+    activeYear: number
+  ): Record<number, CalendarColumnType[]> => {
+    const datesByMonth: Record<number, CalendarColumnType[]> = {};
+
+    // Get today's date for comparison
+    const today = new Date();
+    const todayYear = today.getFullYear();
+    const todayMonth = today.getMonth(); // 0-based
+    const todayDate = today.getDate();
 
     for (let month = 0; month < 12; month++) {
-      const daysInMonth = new Date(activeYear, month + 1, 0).getDate();
-      const dates: CalanderColumnType[] = [];
+      const daysInMonth = new Date(activeYear, month + 1, 0).getDate(); // Get days in the month
+      const dates: CalendarColumnType[] = [];
 
       for (let day = 1; day <= daysInMonth; day++) {
+        const date = new Date(activeYear, month, day);
+        const isCurrentDay =
+          activeYear === todayYear && month === todayMonth && day === todayDate;
+        const isHoliday = date.getDay() === 0 || date.getDay() === 6; // 0 = Sunday, 6 = Saturday
+
         dates.push({
-          date: new Date(activeYear, month, day),
-          isCurrentDay: false,
-          isHoliday: false,
+          date,
+          isCurrentDay,
+          isHoliday,
         });
       }
 
-      datesByMonth[month] = dates;
+      datesByMonth[month] = dates; // Assign array of dates to the month
     }
 
     return datesByMonth;
   };
 
+  const datesByMonth: any = generateDatesByMonth(selectedYear);
 
-
-  const datesByMonth: any = generateDatesByMonth();
-
-  console.log({datesByMonth})
+  console.log({ datesByMonth });
 
   const checkForRows = (grp: Group) => {
     const isTopLevel = grp.parent === null;
@@ -89,7 +100,7 @@ const Calendar = ({ groups = [] }: any) => {
 
       <div className="flex h-[24px]">
         {Object.keys(datesByMonth).map((key) =>
-          datesByMonth[+key]?.map((day: CalanderColumnType) => (
+          datesByMonth[+key]?.map((day: CalendarColumnType) => (
             <div
               key={day ? dayjs(day.date).format("DD-MM-YYYY") : "key"}
               className="border-b border-r border-[#EDEAE9]"
@@ -109,7 +120,7 @@ const Calendar = ({ groups = [] }: any) => {
             checkForRows(grp) && (
               <div key={grp.id} className="flex z-1">
                 {Object.keys(datesByMonth).map((key) =>
-                  datesByMonth[+key]?.map((day: CalanderColumnType) => (
+                  datesByMonth[+key]?.map((day: CalendarColumnType) => (
                     <div
                       key={
                         day.date ? dayjs(day.date).format("DD-MM-YYYY") : "key"
@@ -118,9 +129,12 @@ const Calendar = ({ groups = [] }: any) => {
                       onDrop={(e) =>
                         handleDrop(e, dayjs(day.date).format("DD-MM-YYYY"))
                       }
-                      className="border-b border-r border-[#EDEAE9] h-10 relative z-1 flex items-center"
+                      className={`border-b border-r border-[#EDEAE9] h-10 relative z-1 flex items-center justify-center ${
+                        day?.isHoliday ? "bg-red-600" : ""
+                      }`}
                       style={{ width: styles.dayColWidth }}
                     >
+                      {day.isCurrentDay&&<div className="h-full w-1 bg-yellow-200 z-50"/>}
                       <EventItem
                         activeData={day}
                         group={grp}
