@@ -21,7 +21,7 @@ export const modes = {
   YEAR: { label: "Year", id: "YEAR" },
   MONTH: { label: "Month", id: "MONTH" },
   WEEK: { label: "Week", id: "WEEK" },
-  DAY: { label: "Day", id: "DAY" },
+
 } as const;
 
 export const eventTypes = {

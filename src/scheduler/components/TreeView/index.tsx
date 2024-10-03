@@ -10,24 +10,24 @@ function ChildRenderer({
   let Level = level + 1;
   if (data.length !== null) {
     return (
-      <div>
+      <>
         {data.map((item: any) => (
           <React.Fragment>
             {item.parent === node.id && (
-              <div>
+              <>
                 <div
                   onClick={() => handleExpand(item)}
-                  style={{ marginLeft: Level * 20 }}
-                  className="w-max text-left cursor-pointer"
+                  style={{ paddingLeft: Level * 20 }}
+                  className="w-full  min-w-[300px] text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9]"
                 >
                   {item.name}
                 </div>
                 <div>{renderFunction(item, Level)}</div>
-              </div>
+              </>
             )}
           </React.Fragment>
         ))}
-      </div>
+      </>
     );
   } else {
     return null;
@@ -56,29 +56,29 @@ const TreeView: React.FC<any> = ({ groups, handleExpand }) => {
   };
   useEffect(() => {
     setContentWidth((contentRef?.current?.clientWidth || 199) + 1);
-  }, [contentRef?.current?.clientWidth,groups]);
+  }, [contentRef?.current?.clientWidth, groups]);
 
   return (
     <div>
       <div
-        className="h-[56px] border border-[#EDEAE9] bg-white"
+        className="h-[56px] border-t border-b border-[#EDEAE9] bg-white"
         style={{ width: contentWidth }}
       />
 
-      <div className=" w-max  bg-white">
-        <div ref={contentRef} className="px-5">
+      <div className=" w-max min-w-[300px] bg-white">
+        <div ref={contentRef} className="">
           {groups.map((item: any) => (
             <>
               {item.parent === null && (
                 <>
                   <div
                     onClick={() => handleExpand(item)}
-                    className="w-max text-left cursor-pointer"
+                    className="w-full text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9] pl-5"
                   >
                     <div>{item.name}</div>
                   </div>
 
-                  {item.expand && renderFunction(item, 0)}
+                  {item.expand && renderFunction(item, 1)}
                 </>
               )}
             </>

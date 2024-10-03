@@ -27,7 +27,7 @@ const EventItem: React.FC<any> = ({ activeData, group ,sampleDate,handleDragStar
 
   if (
     group.id === 1 &&
-    dayjs(activeData).format("DD-MM-YYYY") ===  sampleDate
+    dayjs(activeData?.date).format("DD-MM-YYYY") ===  sampleDate
   ) {
     return (
       <div
@@ -36,7 +36,7 @@ const EventItem: React.FC<any> = ({ activeData, group ,sampleDate,handleDragStar
         onDragStart={(e) => handleDragStart(e, activeData)}
         key={activeData}
         id={activeData}
-        className="absolute  left-0  h-9 rounded-sm overflow-hidden resize-x bg-red-300 z-50 item-resize"
+        className="absolute  left-0  h-9 rounded-sm overflow-hidden resize-x bg-red-300 z-40 item-resize"
       >
         EventItem
       </div>
