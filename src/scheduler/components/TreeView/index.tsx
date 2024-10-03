@@ -1,4 +1,5 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { forwardRef, useEffect, useRef, useState } from "react";
+import { TreeProps, TreeRef } from "../../types/common";
 
 function ChildRenderer({
   data,
@@ -16,6 +17,7 @@ function ChildRenderer({
             {item.parent === node.id && (
               <>
                 <div
+                  id={`tree-${item.type}-${item.id}`}
                   onClick={() => handleExpand(item)}
                   style={{ paddingLeft: Level * 20 }}
                   className="w-full  min-w-[300px] text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9]"
@@ -33,7 +35,7 @@ function ChildRenderer({
     return null;
   }
 }
-const TreeView: React.FC<any> = ({ groups, handleExpand }) => {
+const TreeView = forwardRef<TreeRef,TreeProps>(({ groups, handleExpand, treeHeader }) => {
   const contentRef = useRef<HTMLDivElement>(null);
   const [contentWidth, setContentWidth] = useState<number>(
     contentRef?.current?.clientWidth || 200
@@ -59,21 +61,25 @@ const TreeView: React.FC<any> = ({ groups, handleExpand }) => {
   }, [contentRef?.current?.clientWidth, groups]);
 
   return (
-    <div>
+    <div className="tree" id="tree">
       <div
-        className="h-[56px] border-t border-b border-[#EDEAE9] bg-white"
+        className="tree-header"
+        id="tree-header"
         style={{ width: contentWidth }}
-      />
+      >
+        {treeHeader}
+      </div>
 
-      <div className=" w-max min-w-[300px] bg-white">
+      <div className="tree-items-container" id="tree-items-container">
         <div ref={contentRef} className="">
           {groups.map((item: any) => (
             <>
               {item.parent === null && (
                 <>
                   <div
+                    id={`tree-${item.type}-${item.id}`}
                     onClick={() => handleExpand(item)}
-                    className="w-full text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9] pl-5"
+                    className="w-full text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9] pl-5 tree-item"
                   >
                     <div>{item.name}</div>
                   </div>
@@ -87,6 +93,6 @@ const TreeView: React.FC<any> = ({ groups, handleExpand }) => {
       </div>
     </div>
   );
-};
+});
 
 export default TreeView;
