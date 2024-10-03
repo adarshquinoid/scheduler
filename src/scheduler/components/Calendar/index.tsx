@@ -70,7 +70,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
 
     const datesByYear: any = generateDatesByYears();
 
-    console.log({ datesByYear });
+
     useImperativeHandle(ref, () => ({
       loadNext: () => {
         setLoadedYears((currentYears) => {

@@ -1,4 +1,4 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import Calandar from "./components/Calendar";
 import TreeView from "./components/TreeView";
 import {
@@ -7,6 +7,8 @@ import {
   SchedulerRef,
   TreeRef,
 } from "./types/common";
+import { SchedulerProvider } from "./providers/SchedulerProvider";
+import TopBar from "./components/Controlls/TopBar";
 
 const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
   ({ groupData = [], handleExpand, data = [], treeHeader = "" }, ref) => {
@@ -44,28 +46,33 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     };
 
     return (
-      <div
-        className="scheduler"
-        id="scheduler"
-        ref={schedulerRef}
-        onScroll={handleScroll}
-      >
-        <div
-          className="tree-container"
-          id="tree-container"
-          ref={treeContainerRef}
-        >
-          <TreeView
-            groups={groupData}
-            treeHeader={treeHeader}
-            handleExpand={handleExpand}
-            ref={treeRef}
-          />
-        </div>
-        <div className="calandar-container" id="calandar-container">
-          <Calandar groups={groupData} ref={calendarRef} data={data} />
-        </div>
-      </div>
+      <SchedulerProvider>
+        <React.Fragment>
+          <TopBar />
+          <div
+            className="scheduler"
+            id="scheduler"
+            ref={schedulerRef}
+            onScroll={handleScroll}
+          >
+            <div
+              className="tree-container"
+              id="tree-container"
+              ref={treeContainerRef}
+            >
+              <TreeView
+                groups={groupData}
+                treeHeader={treeHeader}
+                handleExpand={handleExpand}
+                ref={treeRef}
+              />
+            </div>
+            <div className="calandar-container" id="calandar-container">
+              <Calandar groups={groupData} ref={calendarRef} data={data} />
+            </div>
+          </div>
+        </React.Fragment>
+      </SchedulerProvider>
     );
   }
 );

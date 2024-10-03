@@ -42,7 +42,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
     const handleDrop = (e: React.DragEvent<HTMLDivElement>, day: string) => {
       e.preventDefault();
-      console.log(day);
+
       const draggedDate = e.dataTransfer.getData("text/plain");
       console.log(`Dropped ${draggedDate} on ${day}`);
       setNewPostion(day);

@@ -17,4 +17,9 @@ export type CalendarColumnType={
     isCurrentDay:boolean
 }
 
+export type SchedulerModes={label:string, id:string}
+export type SchedulerContextType = {
+    mode: SchedulerModes; 
+    setMode: (mode: SchedulerModes) => void; 
+  };
 export type EventItemProps=any
