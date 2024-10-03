@@ -1,2 +1,2 @@
 export type Group=any
-export type Calander=any
+export type calandar=any

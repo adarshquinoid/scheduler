@@ -1,7 +1,6 @@
-import { forwardRef, useImperativeHandle, useRef, useState } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import Calandar from "./components/Calendar";
 import TreeView from "./components/TreeView";
-import { modes } from "./helpers/constants";
 import {
   CalendarRef,
   SchedulerProps,
@@ -14,31 +13,43 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     const treeContainerRef = useRef<HTMLDivElement>(null);
     const treeRef = useRef<TreeRef>(null);
     const calendarRef = useRef<CalendarRef>(null);
-    const schedulerRef = useRef<HTMLDivElement  & { previousScrollLeft?: number }>(null);
+    const schedulerRef = useRef<
+      HTMLDivElement & { previousScrollLeft?: number }
+    >(null);
     useImperativeHandle(ref, () => ({
       onClick: () => {},
     }));
-
-
 
     const handleScroll = () => {
       if (schedulerRef.current) {
         const scrollLeft = schedulerRef.current.scrollLeft;
         const scrollWidth = schedulerRef.current.scrollWidth;
         const clientWidth = schedulerRef.current.clientWidth;
+        const scrollPositionToRight = scrollWidth - (scrollLeft + clientWidth);
+        const scrollPositionBefore = scrollPositionToRight;
+
         if (scrollLeft === 0) {
-          calendarRef?.current?.loadPrevious()
+          calendarRef?.current?.loadPrevious();
+          setTimeout(() => {
+            if (schedulerRef.current) {
+              const newScrollWidth = schedulerRef.current.scrollWidth;
+              schedulerRef.current.scrollLeft =
+                newScrollWidth - clientWidth - scrollPositionBefore;
+            }
+          }, 0);
+        } else if (scrollLeft === scrollWidth - clientWidth) {
+          calendarRef?.current?.loadNext();
         }
-        else if (scrollLeft === scrollWidth - clientWidth) {
-          calendarRef?.current?.loadNext()
-        
-        } 
       }
     };
 
-    const [activeModes] = useState(modes.YEAR);
     return (
-      <div className="scheduler" id="scheduler" ref={schedulerRef}   onScroll={handleScroll}>
+      <div
+        className="scheduler"
+        id="scheduler"
+        ref={schedulerRef}
+        onScroll={handleScroll}
+      >
         <div
           className="tree-container"
           id="tree-container"
@@ -51,13 +62,8 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             ref={treeRef}
           />
         </div>
-        <div className="calander-container" id="calander-container">
-          <Calandar
-            groups={groupData}
-            mode={activeModes}
-            ref={calendarRef}
-            data={data}
-          />
+        <div className="calandar-container" id="calandar-container">
+          <Calandar groups={groupData} ref={calendarRef} data={data} />
         </div>
       </div>
     );
