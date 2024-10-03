@@ -1,0 +1,42 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.scheduler {
+  display: flex;
+  width: 100%;
+  position: relative;
+  border: 1px solid #e5e7eb;
+  overflow: auto;
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+
+  .tree-container {
+    border-right: 1px solid #e5e7eb;
+    border-bottom: 1px solid #e5e7eb;
+    z-index: 50;
+    position: sticky;
+    left: 0;
+
+    .tree {
+      background: white;
+      .tree-header {
+        background: white;
+        height: 56px;
+        border-top: 1px solid #e5e7eb;
+        border-bottom: 1px solid #e5e7eb;
+      }
+
+      .tree-items-container {
+        width: max-content;
+        min-width: 300px;
+        background: white;
+      }
+    }
+  }
+
+  .calandar-container {
+    display: flex;
+    width: 100%;
+  }
+}
