@@ -1,14 +1,25 @@
 import dayjs from "dayjs";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { styles } from "../../helpers/constants";
 
-const EventItem: React.FC<any> = ({ activeData, group ,sampleDate,handleDragStart}) => {
+const EventItem: React.FC<any> = ({
+  activeData,
+  group,
+
+  handleDragStart,
+  data,
+}) => {
+  console.log(data);
+  const [dragWidth, setDragWidth] = useState<number>(styles.dayColWidth);
+  const [calcukatedWidth, setCalculatedWidth] = useState<number>(
+    styles.dayColWidth
+  );
   const resizeRef = useRef<HTMLDivElement>(null);
-
+  const [resizabe, setResizable] = useState<boolean>(true);
   useEffect(() => {
     const resizeObserver = new ResizeObserver((entries) => {
       for (let entry of entries) {
-        // Call on resize here
-        console.log(entry.contentRect.width);
+        setDragWidth(entry.contentRect.width);
       }
     });
 
@@ -16,33 +27,56 @@ const EventItem: React.FC<any> = ({ activeData, group ,sampleDate,handleDragStar
       resizeObserver.observe(resizeRef.current);
     }
 
-    // Cleanup on unmount
+    // Cleanup observer on component unmount
     return () => {
-      if (resizeRef.current) {
-        // eslint-disable-next-line react-hooks/exhaustive-deps
-        resizeObserver.unobserve(resizeRef.current);
-      }
+      resizeObserver.disconnect();
     };
   }, []);
 
-  if (
-    group.id === 1 &&
-    dayjs(activeData?.date).format("DD-MM-YYYY") ===  sampleDate
-  ) {
-    return (
-      <div
-        ref={resizeRef}
-        draggable
-        onDragStart={(e) => handleDragStart(e, activeData)}
-        key={activeData}
-        id={activeData}
-        className="absolute  left-0  h-9 rounded-sm overflow-hidden resize-x bg-red-300 z-40 item-resize"
-      >
-        EventItem
-      </div>
-    );
-  }
-  return null;
+  const onMouseEnter = () => {
+    setResizable(true);
+  };
+
+  const onMouseLeave = () => {
+    setResizable(false);
+    setCalculateDragWidth();
+  };
+  const setCalculateDragWidth = () => {
+    const remainingWidtth = dragWidth % styles.dayColWidth;
+    if (remainingWidtth !== 0) {
+      setCalculatedWidth(dragWidth - remainingWidtth + styles.dayColWidth);
+    } else {
+      setCalculatedWidth(dragWidth);
+    }
+  };
+  console.log(data);
+  return (
+    <>
+      {data?.length > 0 && (
+        <>
+          {data.map((_item: any) => (
+            <div
+              ref={resizeRef}
+              draggable
+              onMouseEnter={onMouseEnter}
+              onTouchStartCapture={onMouseEnter}
+              onTouchEnd={onMouseLeave}
+              onMouseLeave={onMouseLeave}
+              style={{ width: `${calcukatedWidth}px` }}
+              onDragStart={(e) => handleDragStart(e, activeData)}
+              key={activeData}
+              id={activeData}
+              className={`absolute  left-0  h-9 rounded-sm overflow-hidden ${
+                resizabe ? "resize-x z-40" : "z-20"
+              } bg-red-300 z-40 `}
+            >
+              EventItem
+            </div>
+          ))}
+        </>
+      )}
+    </>
+  );
 };
 
 export default EventItem;

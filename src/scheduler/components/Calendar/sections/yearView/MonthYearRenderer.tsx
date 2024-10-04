@@ -20,6 +20,7 @@ const MonthYearRenderer = forwardRef<
             <div
               key={key}
               style={{
+                fontSize:styles.dayColHeaderFontSize,
                 width: `${
                   datesByYear[yr][+key]?.length * styles.dayColWidth
                 }px`,

@@ -16,7 +16,7 @@ import { styles } from "../../../../helpers/constants";
 import EventItem from "../../../EventItems";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
-  ({ datesByYear, groups }, ref) => {
+  ({ datesByYear, groups, data }, ref) => {
     const [dragSample, setDragSample] = useState("");
     const currentDayRef = useRef<HTMLDivElement>(null);
     const [newPosition, setNewPostion] = useState("03-10-2024");
@@ -45,7 +45,6 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
       const draggedDate = e.dataTransfer.getData("text/plain");
       console.log(`Dropped ${draggedDate} on ${day}`);
-      setNewPostion(day);
 
       // Handle your drop logic here, e.g., updating state, sending data to a server, etc.
     };
@@ -74,7 +73,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
           (grp: Group) =>
             checkForRows(grp) && (
               <div key={grp.id} className="flex z-1">
-                 {Object.keys(datesByYear).map((yr: any, index: number) => (
+                {Object.keys(datesByYear).map((yr: any, index: number) => (
                   <React.Fragment key={`yr-date-year-body-${index}`}>
                     {Object.keys(datesByYear[yr]).map((key) =>
                       datesByYear[yr][+key]?.map((day: CalendarColumnType) => (
@@ -88,20 +87,34 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
                           onDrop={(e) =>
                             handleDrop(e, dayjs(day.date).format("DD-MM-YYYY"))
                           }
-                          className={`border-b border-r border-[#EDEAE9] h-10 relative z-1 flex items-center justify-center ${
-                            day?.isHoliday ? "bg-red-100" : ""
-                          }`}
-                          style={{ width: styles.dayColWidth }}
+                          style={{
+                            background: day.isHoliday
+                              ? styles.dayColHolidayBG
+                              : styles.dayColColBg,
+                            width: styles.dayColWidth,
+                            minHeight: styles.dayColHeight,
+                            borderColor: styles.dayColBorderColor,
+                          }}
+                          className={`border-b border-r   relative z-1 flex items-center justify-center `}
                         >
                           <EventItem
                             activeData={day}
+                            data={data.filter(
+                              (item: any) =>
+                                item.start ===
+                                  dayjs(day?.date).format("DD-MM-YYYY") &&
+                                item.role === grp.id
+                            )}
                             group={grp}
-                            sampleDate={newPosition}
                             handleDragStart={handleDragStart}
                           />
                           {day.isCurrentDay && (
                             <div
-                              className="h-full w-1 bg-yellow-200 z-40"
+                              style={{
+                                background: styles.currentDayIndicatorBGColor,
+                                height: `calc(100% + 2px)`,
+                              }}
+                              className="h-full w-1 z-30"
                               ref={currentDayRef}
                             />
                           )}

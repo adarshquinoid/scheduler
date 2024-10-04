@@ -1,17 +1,30 @@
 import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import Calandar from "./components/Calendar";
+import TopBar from "./components/Controlls/TopBar";
 import TreeView from "./components/TreeView";
+import { SchedulerProvider } from "./providers/SchedulerProvider";
 import {
   CalendarRef,
   SchedulerProps,
   SchedulerRef,
   TreeRef,
 } from "./types/common";
-import { SchedulerProvider } from "./providers/SchedulerProvider";
-import TopBar from "./components/Controlls/TopBar";
 
 const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
-  ({ groupData = [], handleExpand, data = [], treeHeader = "" }, ref) => {
+  (
+    {
+      groupData = [],
+      handleExpand,
+      data = [],
+      treeHeader = "",
+
+      expandIcon,
+      collapseIcon,
+      itemStartIcon,
+      itemEndIcon,
+    },
+    ref
+  ) => {
     const treeContainerRef = useRef<HTMLDivElement>(null);
     const treeRef = useRef<TreeRef>(null);
     const calendarRef = useRef<CalendarRef>(null);
@@ -29,8 +42,8 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
         const clientWidth = schedulerRef.current.clientWidth;
         const scrollPositionToRight = scrollWidth - (scrollLeft + clientWidth);
         const scrollPositionBefore = scrollPositionToRight;
-
-        if (scrollLeft === 0) {
+        const threshold = 10;
+        if (scrollLeft===0) {
           calendarRef?.current?.loadPrevious();
           setTimeout(() => {
             if (schedulerRef.current) {
@@ -39,7 +52,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
                 newScrollWidth - clientWidth - scrollPositionBefore;
             }
           }, 0);
-        } else if (scrollLeft === scrollWidth - clientWidth) {
+        } else if (scrollLeft >= scrollWidth - clientWidth - threshold) {
           calendarRef?.current?.loadNext();
         }
       }
@@ -64,6 +77,10 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
                 groups={groupData}
                 treeHeader={treeHeader}
                 handleExpand={handleExpand}
+                expandIcon={expandIcon}
+                collapseIcon={collapseIcon}
+                itemStartIcon={itemStartIcon}
+                itemEndIcon={itemEndIcon}
                 ref={treeRef}
               />
             </div>

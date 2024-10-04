@@ -14,7 +14,7 @@ import DateRenderer from "./sections/yearView/DateRenderer";
 import DateYearBody from "./sections/yearView/DateYearBody";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
-  ({ groups = [] }, ref) => {
+  ({ groups = [],data=[] }, ref) => {
     const monthYearRendererRef = useRef<MonthYearRendererRef>(null);
     const dateRendererRef = useRef<DateRendererRef>(null);
     const dateYearBodyRef = useRef<DateYearBodyRef>(null);
@@ -87,8 +87,10 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
         });
       },
     }));
+
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col over">
+        <div>
         <MonthYearRenderer
           datesByYear={datesByYear}
           ref={monthYearRendererRef}
@@ -97,8 +99,10 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
         <DateYearBody
           datesByYear={datesByYear}
           groups={groups}
+          data={data}
           ref={dateYearBodyRef}
         />
+      </div>
       </div>
     );
   }

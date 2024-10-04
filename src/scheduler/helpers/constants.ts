@@ -15,6 +15,18 @@ export const Months = {
 
 export const styles = {
   dayColWidth: 40,
+  dayColHeight:50,
+  dayColHolidayBG:"#F5F3F3",
+  dayColHeaderBG:"#F5F3F3",
+  dayColHeaderColor:"#1E1F21",
+  dayColHeaderFontSize:"12px",
+  dayColHeaderBorderColor:"#EDEAE9",
+  currentDayColHeaderBorderColor:"#ff1010",
+  dayColColBg:"#F9F8F8",
+  dayColBorderColor:"#EDEAE9",
+  eventItemHeight:42,
+  currentDayIndicatorBGColor:"#ff1010",
+  currentDayIndicatorColor:"#ffffff"
 } as const;
 
 export const modes = {

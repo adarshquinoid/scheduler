@@ -7,6 +7,7 @@ import React, {
 } from "react";
 import { TreeProps, TreeRef } from "../../types/common";
 import { Group } from "../../types/datastructure";
+import { styles } from "../../helpers/constants";
 
 function ChildRenderer({
   data,
@@ -26,8 +27,11 @@ function ChildRenderer({
                 <div
                   id={`tree-${item.type}-${item.id}`}
                   onClick={() => handleExpand(item)}
-                  style={{ paddingLeft: Level * 20 }}
-                  className="w-full  min-w-[300px] text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9]"
+                  style={{
+                    paddingLeft: Level * 20,
+                    minHeight: styles.dayColHeight,
+                  }}
+                  className="w-full  min-w-[300px] text-left cursor-pointer  border-t border-b border-[#EDEAE9]"
                 >
                   {item.name}
                 </div>
@@ -64,6 +68,7 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
       }
       return null;
     };
+    const generateIcons = (item: Group) => {};
     useEffect(() => {
       setContentWidth((contentRef?.current?.clientWidth || 199) + 1);
     }, [contentRef?.current?.clientWidth, groups]);
@@ -87,10 +92,12 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
                 {item.parent === null && (
                   <React.Fragment>
                     <div
+                      style={{ minHeight: styles.dayColHeight }}
                       id={`tree-${item.type}-${item.id}`}
                       onClick={() => handleExpand(item)}
-                      className="w-full text-left cursor-pointer h-10  border-t border-b border-[#EDEAE9] pl-5 tree-item"
+                      className="w-full text-left cursor-pointer  border-t border-b border-[#EDEAE9] pl-5 tree-item flex items-center gap-2"
                     >
+                      {/* <div>{generateIcons(item)}</div> */}
                       <div>{item.name}</div>
                     </div>
 

@@ -20,10 +20,17 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
               datesByYear[yr][+key]?.map((day: CalendarColumnType) => (
                 <div
                   key={day ? dayjs(day.date).format("DD-MM-YYYY") : "key"}
-                  className={`border-b border-r border-[#EDEAE9]  ${
-                    day?.isHoliday ? "bg-red-100" : ""
-                  }`}
-                  style={{ width: styles.dayColWidth }}
+                  className={`border-b border-r  `}
+                  style={{
+                    width: styles.dayColWidth,
+                    background: day.isCurrentDay
+                      ? styles.currentDayIndicatorBGColor
+                      : styles.dayColHeaderBG,
+                    color: day.isCurrentDay
+                      ? styles.currentDayIndicatorColor
+                      : styles.dayColHeaderColor,
+                      borderColor:day.isCurrentDay?styles.currentDayColHeaderBorderColor:styles.dayColHeaderBorderColor
+                  }}
                 >
                   <div className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal">
                     {day ? dayjs(day.date).format("DD") : ""}
