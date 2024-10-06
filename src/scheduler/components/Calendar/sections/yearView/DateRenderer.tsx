@@ -4,7 +4,7 @@ import {
   DateRendererProps,
   DateRendererRef,
 } from "../../../../types/common";
-import { styles } from "../../../../helpers/constants";
+import { dateFormat, styles } from "../../../../helpers/constants";
 import dayjs from "dayjs";
 
 const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
@@ -19,7 +19,7 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
             {Object.keys(datesByYear[yr]).map((key) =>
               datesByYear[yr][+key]?.map((day: CalendarColumnType) => (
                 <div
-                  key={day ? dayjs(day.date).format("DD-MM-YYYY") : "key"}
+                  key={day ? dayjs(day.date).format(dateFormat) : "key"}
                   className={`border-b border-r  `}
                   style={{
                     width: styles.dayColWidth,

@@ -10,6 +10,8 @@ export type DateRendererProps=any;
 export type DateRendererRef=any;
 export type DateYearBodyProps=any;
 export type DateYearBodyRef=any;
+export type EventItemProps=any;
+export type EventItemRef=any;
 
 export type CalendarColumnType={
     date:Date,
@@ -22,4 +24,3 @@ export type SchedulerContextType = {
     mode: SchedulerModes; 
     setMode: (mode: SchedulerModes) => void; 
   };
-export type EventItemProps=any
