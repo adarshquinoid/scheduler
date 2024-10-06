@@ -10,15 +10,22 @@ import {
   CalendarColumnType,
   DateYearBodyProps,
   DateYearBodyRef,
+  EventItemRef,
 } from "../../../../types/common";
 import dayjs from "dayjs";
-import { styles } from "../../../../helpers/constants";
+import { dateFormat, styles } from "../../../../helpers/constants";
 import EventItem from "../../../EventItems";
+import {
+  createDateRange,
+  eventItemData,
+  generateActiveColumnDates,
+} from "../../../../helpers/utilities";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
   ({ datesByYear, groups, data }, ref) => {
     const [dragSample, setDragSample] = useState("");
     const currentDayRef = useRef<HTMLDivElement>(null);
+    const eventItemRef = useRef<EventItemRef>(null);
     const [newPosition, setNewPostion] = useState("03-10-2024");
     const checkForRows = (grp: Group) => {
       const isTopLevel = grp.parent === null;
@@ -44,7 +51,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
       e.preventDefault();
 
       const draggedDate = e.dataTransfer.getData("text/plain");
-      console.log(`Dropped ${draggedDate} on ${day}`);
+      // console.log(`Dropped ${draggedDate} on ${day}`);
 
       // Handle your drop logic here, e.g., updating state, sending data to a server, etc.
     };
@@ -62,11 +69,15 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
     useEffect(() => {
       if (currentDayRef?.current) {
         navigateToCurrentDay();
+        data?.forEach((item: any) => {
+          console.log(`${item.start}:`,createDateRange(item));
+        });
       }
     }, []);
     useImperativeHandle(ref, () => ({
       onClick: () => {},
     }));
+
     return (
       <div>
         {groups.map(
@@ -80,12 +91,12 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
                         <div
                           key={
                             day.date
-                              ? dayjs(day.date).format("DD-MM-YYYY")
+                              ? dayjs(day.date).format(dateFormat)
                               : "key"
                           }
                           onDragOver={handleDragOver}
                           onDrop={(e) =>
-                            handleDrop(e, dayjs(day.date).format("DD-MM-YYYY"))
+                            handleDrop(e, dayjs(day.date).format(dateFormat))
                           }
                           style={{
                             background: day.isHoliday
@@ -94,17 +105,14 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
                             width: styles.dayColWidth,
                             minHeight: styles.dayColHeight,
                             borderColor: styles.dayColBorderColor,
+                            height: eventItemRef?.current?.getRowHeight(),
                           }}
-                          className={`border-b border-r   relative z-1 flex items-center justify-center `}
+                          className={`border-b border-r h-auto relative  z-1 flex items-center justify-center `}
                         >
                           <EventItem
                             activeData={day}
-                            data={data.filter(
-                              (item: any) =>
-                                item.start ===
-                                  dayjs(day?.date).format("DD-MM-YYYY") &&
-                                item.role === grp.id
-                            )}
+                            ref={eventItemRef}
+                            data={eventItemData(data, grp, day)}
                             group={grp}
                             handleDragStart={handleDragStart}
                           />

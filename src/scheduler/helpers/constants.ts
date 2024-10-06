@@ -12,7 +12,7 @@ export const Months = {
   10: "November",
   11: "December",
 } as const;
-
+export const dateFormat="DD-MM-YYYY"
 export const styles = {
   dayColWidth: 40,
   dayColHeight:50,

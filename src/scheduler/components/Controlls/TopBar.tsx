@@ -5,7 +5,7 @@ import { modes } from "../../helpers/constants";
 const TopBar = () => {
   const { mode, setMode } = useScheduler();
   useEffect(() => {
-    console.log(mode);
+    // console.log(mode);
   }, [mode]);
 
   return (
