@@ -1,7 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import { CalendarColumnType } from "../types/common";
 import { calandar, Group } from "../types/datastructure";
-import { dateFormat } from "./constants";
+import { dateFormat, styles } from "./constants";
 import customParseFormat from "dayjs/plugin/customParseFormat";
 dayjs.extend(customParseFormat);
 export function createDateRange(item: calandar): string[] {
@@ -35,18 +35,22 @@ export const generateActiveColumnDates = (
 ): String[] => {
   if (dateRange.length > 0) {
     //   console.log(dateRange, activeDate);
-    return dateRange.some((item: String) => item === activeDate)?dateRange:[];
+    return dateRange.some((item: String) => item === activeDate)
+      ? dateRange
+      : [];
   } else return [];
 };
-
+export const getCurrentRowData = (data: calandar[], group: Group) => {
+  return data.filter((item: any) => item.role === group.id);
+};
 export const eventItemData = (
   data: calandar,
   group: Group,
   day: CalendarColumnType
 ) => {
-  let datasOnCyrrentRow = data.filter((item: any) => item.role === group.id);
+  let datasOnCurrentRow = getCurrentRowData(data, group);
   const finalData: any = [];
-  datasOnCyrrentRow.forEach((item: any) => {
+  datasOnCurrentRow.forEach((item: any) => {
     const dateData = generateActiveColumnDates(
       createDateRange(item),
       dayjs(day.date).format(dateFormat)
@@ -55,5 +59,53 @@ export const eventItemData = (
       finalData.push(dateData);
     }
   });
+  if(finalData>0){
+    console.log(finalData)
+  }
   return finalData;
 };
+export const calculateRepeatedRanges = (data: calandar[]): number => {
+  const rangeCount: Record<string, number> = {};
+
+  // Generate date ranges and count occurrences
+  data.forEach((item: calandar) => {
+    const ranges = createDateRange(item);
+
+    ranges.forEach((range) => {
+      if (rangeCount[range]) {
+        rangeCount[range] += 1; // Increment count if range already exists
+      } else {
+        rangeCount[range] = 1; // Initialize count if it's a new range
+      }
+    });
+  });
+
+  // Find the range with the largest count
+  let maxCount = 0;
+
+  for (const [_range, count] of Object.entries(rangeCount)) {
+    if (count > maxCount) {
+      maxCount = count;
+    }
+  }
+
+  // Return the range with the largest count, or null if there are no repeated ranges
+  return maxCount > 1 ? maxCount : 1;
+};
+
+export const generateColumnHeight = (data: calandar[], group: Group) => {
+  let datasOnCurrentRow = getCurrentRowData(data, group);
+  let actualLength = calculateRepeatedRanges(datasOnCurrentRow);
+
+  if (actualLength > 1) {
+    return (
+      styles.eventItemHeight * actualLength +
+      (actualLength - 1) * styles.eventItemContainerGap +
+      styles.eventItemContainerPadding * 2
+    );
+  } else {
+    return styles.eventItemHeight + styles.eventItemContainerPadding * 2;
+  }
+};
+
+

@@ -25,6 +25,9 @@ export const styles = {
   dayColColBg:"#F9F8F8",
   dayColBorderColor:"#EDEAE9",
   eventItemHeight:42,
+  eventItemContainerPadding:5,
+  eventItemContainerGap:5,
+  
   currentDayIndicatorBGColor:"#ff1010",
   currentDayIndicatorColor:"#ffffff"
 } as const;

@@ -2,19 +2,20 @@ import { useState } from "react";
 import "./App.css";
 import Scheduler from "./scheduler";
 import { Group } from "./scheduler/types/datastructure";
+import { SchedulerProvider } from "./scheduler/providers/SchedulerProvider";
 
 function App() {
   const datas = [
     { name: "Bahri", parent: null, id: 1, expand: false, type: "tenent" },
     { name: "Alanood (SAR)", parent: 1, id: 101, expand: false, type: "group" },
     { name: "Master", parent: 101, id: 1011, expand: false, type: "role" },
-    // {
-    //   name: "Chief Officer",
-    //   parent: 101,
-    //   id: 1012,
-    //   expand: false,
-    //   type: "role",
-    // },
+    {
+      name: "Chief Officer",
+      parent: 101,
+      id: 1012,
+      expand: false,
+      type: "role",
+    },
     // { name: "2nd Officer", parent: 101, id: 1013, expand: false, type: "role" },
     // { name: "3rd Officer", parent: 101, id: 1014, expand: false, type: "role" },
     // {
@@ -49,7 +50,8 @@ function App() {
   const calData = [
     { start: "10-10-2024", end: "20-10-2024", role: 1011 },
     { start: "10-10-2024", end: "18-10-2024", role: 1011 },
-    { start: "21-10-2024", end: "25-10-2024", role: 1011 },
+    // { start: "21-10-2024", end: "25-10-2024", role: 1011 },
+    // { start: "21-10-2024", end: "26-10-2024", role: 1011 },
   ];
 
   const [employeeDatas, setEmployeeDatas] = useState(
@@ -66,10 +68,13 @@ function App() {
       )
     );
   };
+  const onDragEnd=()=>{}
+  const onResize=()=>{}
   return (
     <>
       <div className="bg-green-300  p-5 ">Scheduler Component</div>
       <div>
+        <SchedulerProvider>
         <Scheduler
           groupData={employeeDatas}
           data={calData}
@@ -78,7 +83,10 @@ function App() {
           collapseIcon={<div>+</div>}
           itemStartIcon={<div>:</div>}
           itemEndIcon={<div>:</div>}
+          onDragEnd={onDragEnd}
+          onResize={onResize}
         />
+        </SchedulerProvider>
       </div>
     </>
   );

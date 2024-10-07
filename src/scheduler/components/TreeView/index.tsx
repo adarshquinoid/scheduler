@@ -8,7 +8,15 @@ import React, {
 import { TreeProps, TreeRef } from "../../types/common";
 import { Group } from "../../types/datastructure";
 import { styles } from "../../helpers/constants";
+const getHeightFromView = (id: number | string) => {
+  var selectedRow = document.getElementById(`event-row-${id}`);
 
+  if (selectedRow) {
+    // Get the height of the element
+    return selectedRow.clientHeight;
+  }
+  return styles.dayColHeight;
+};
 function ChildRenderer({
   data,
   level,
@@ -30,6 +38,7 @@ function ChildRenderer({
                   style={{
                     paddingLeft: Level * 20,
                     minHeight: styles.dayColHeight,
+                    height: getHeightFromView(item.id),
                   }}
                   className="w-full  min-w-[300px] text-left cursor-pointer  border-t border-b border-[#EDEAE9]"
                 >
@@ -69,6 +78,7 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
       return null;
     };
     const generateIcons = (item: Group) => {};
+
     useEffect(() => {
       setContentWidth((contentRef?.current?.clientWidth || 199) + 1);
     }, [contentRef?.current?.clientWidth, groups]);
@@ -92,7 +102,10 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
                 {item.parent === null && (
                   <React.Fragment>
                     <div
-                      style={{ minHeight: styles.dayColHeight }}
+                      style={{
+                        minHeight: styles.dayColHeight,
+                        height: getHeightFromView(item.id),
+                      }}
                       id={`tree-${item.type}-${item.id}`}
                       onClick={() => handleExpand(item)}
                       className="w-full text-left cursor-pointer  border-t border-b border-[#EDEAE9] pl-5 tree-item flex items-center gap-2"

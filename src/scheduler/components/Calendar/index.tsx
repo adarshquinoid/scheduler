@@ -9,12 +9,12 @@ import {
   MonthYearRendererRef,
 } from "../../types/common";
 
-import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
 import DateRenderer from "./sections/yearView/DateRenderer";
 import DateYearBody from "./sections/yearView/DateYearBody";
+import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
-  ({ groups = [],data=[] }, ref) => {
+  ({ groups = [], data = [] }, ref) => {
     const monthYearRendererRef = useRef<MonthYearRendererRef>(null);
     const dateRendererRef = useRef<DateRendererRef>(null);
     const dateYearBodyRef = useRef<DateYearBodyRef>(null);
@@ -70,7 +70,6 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
 
     const datesByYear: any = generateDatesByYears();
 
-
     useImperativeHandle(ref, () => ({
       loadNext: () => {
         setLoadedYears((currentYears) => {
@@ -86,23 +85,24 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
           return newYears;
         });
       },
+  
     }));
 
     return (
       <div className="flex flex-col over">
         <div>
-        <MonthYearRenderer
-          datesByYear={datesByYear}
-          ref={monthYearRendererRef}
-        />
-        <DateRenderer datesByYear={datesByYear} ref={dateRendererRef} />
-        <DateYearBody
-          datesByYear={datesByYear}
-          groups={groups}
-          data={data}
-          ref={dateYearBodyRef}
-        />
-      </div>
+          <MonthYearRenderer
+            datesByYear={datesByYear}
+            ref={monthYearRendererRef}
+          />
+          <DateRenderer datesByYear={datesByYear} ref={dateRendererRef} />
+          <DateYearBody
+            datesByYear={datesByYear}
+            groups={groups}
+            data={data}
+            ref={dateYearBodyRef}
+          />
+        </div>
       </div>
     );
   }

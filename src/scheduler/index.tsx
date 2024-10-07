@@ -2,7 +2,6 @@ import React, { forwardRef, useImperativeHandle, useRef } from "react";
 import Calandar from "./components/Calendar";
 import TopBar from "./components/Controlls/TopBar";
 import TreeView from "./components/TreeView";
-import { SchedulerProvider } from "./providers/SchedulerProvider";
 import {
   CalendarRef,
   SchedulerProps,
@@ -22,6 +21,8 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       collapseIcon,
       itemStartIcon,
       itemEndIcon,
+      onDragEnd,
+
     },
     ref
   ) => {
@@ -43,7 +44,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
         const scrollPositionToRight = scrollWidth - (scrollLeft + clientWidth);
         const scrollPositionBefore = scrollPositionToRight;
         const threshold = 10;
-        if (scrollLeft===0) {
+        if (scrollLeft === 0) {
           calendarRef?.current?.loadPrevious();
           setTimeout(() => {
             if (schedulerRef.current) {
@@ -57,39 +58,43 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
         }
       }
     };
-
+    const scrollIntoView = () => {};
     return (
-      <SchedulerProvider>
-        <React.Fragment>
-          <TopBar />
+      <React.Fragment>
+        <TopBar navigateToday={scrollIntoView} />
+        <div
+          className="scheduler"
+          id="scheduler"
+          ref={schedulerRef}
+          onScroll={handleScroll}
+        >
           <div
-            className="scheduler"
-            id="scheduler"
-            ref={schedulerRef}
-            onScroll={handleScroll}
+            className="tree-container"
+            id="tree-container"
+            ref={treeContainerRef}
           >
-            <div
-              className="tree-container"
-              id="tree-container"
-              ref={treeContainerRef}
-            >
-              <TreeView
-                groups={groupData}
-                treeHeader={treeHeader}
-                handleExpand={handleExpand}
-                expandIcon={expandIcon}
-                collapseIcon={collapseIcon}
-                itemStartIcon={itemStartIcon}
-                itemEndIcon={itemEndIcon}
-                ref={treeRef}
-              />
-            </div>
-            <div className="calandar-container" id="calandar-container">
-              <Calandar groups={groupData} ref={calendarRef} data={data} />
-            </div>
+            <TreeView
+              groups={groupData}
+              treeHeader={treeHeader}
+              handleExpand={handleExpand}
+              expandIcon={expandIcon}
+              collapseIcon={collapseIcon}
+              itemStartIcon={itemStartIcon}
+              itemEndIcon={itemEndIcon}
+              ref={treeRef}
+            />
           </div>
-        </React.Fragment>
-      </SchedulerProvider>
+          <div className="calandar-container" id="calandar-container">
+            <Calandar
+              groups={groupData}
+              ref={calendarRef}
+              data={data}
+       
+              onDragEnd={onDragEnd}
+            />
+          </div>
+        </div>
+      </React.Fragment>
     );
   }
 );
