@@ -107,13 +107,14 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
             onMouseLeave={onMouseLeave}
             style={{
               width: calculatedWidth,
+              background: data?.background,
             }}
             onDragStart={(e) =>
               handleDragStart(
                 e,
                 activeDate,
                 data,
-                calculatedWidth / styles.dayColWidth-1
+                calculatedWidth / styles.dayColWidth - 1
               )
             }
             id={`event-item-${activeDate}`}

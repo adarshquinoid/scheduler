@@ -13,7 +13,7 @@ const EventItemContainer = forwardRef<
   if (groupedData.length > 0) {
     console.log({ groupedData });
   }
-  console.log({ activeData });
+
   return (
     <div className="absolute  left-0 ">
       {groupedData?.length > 0 && (

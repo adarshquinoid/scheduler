@@ -8,7 +8,7 @@ import { Group } from "../../../../types/datastructure";
 import DateYearBodyRow from "./DateYearBodyRow";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
-  ({ datesByYear, groups, data,onResize,onDragEnd}, ref) => {
+  ({ datesByYear, groups, data, onResize, onDragEnd }, ref) => {
     const dateYearBodyRowRef = useRef<DateYearBodyRowRef>();
     const checkForRows = (grp: Group) => {
       const isTopLevel = grp.parent === null;
@@ -27,7 +27,6 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
     return (
       <div>
-   
         {groups.map(
           (grp: Group) =>
             checkForRows(grp) && (
@@ -36,6 +35,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
                 groups={groups}
                 onResize={onResize}
                 onDragEnd={onDragEnd}
+                key={`calendar-row-${grp.id}`}
                 data={data}
                 ref={dateYearBodyRowRef}
                 activeGroup={grp}
