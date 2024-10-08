@@ -1,8 +1,9 @@
+import dayjs from "dayjs";
 import { useState } from "react";
 import "./App.css";
 import Scheduler from "./scheduler";
-import { Group } from "./scheduler/types/datastructure";
-import { SchedulerProvider } from "./scheduler/providers/SchedulerProvider";
+import { dateFormat } from "./scheduler/helpers/constants";
+import { calandar, Group } from "./scheduler/types/datastructure";
 
 function App() {
   const datas = [
@@ -48,8 +49,8 @@ function App() {
   ];
 
   const calData = [
-    { start: "10-10-2024", end: "20-10-2024", role: 1011 },
-    { start: "10-10-2024", end: "18-10-2024", role: 1011 },
+    { start: "10-10-2024", end: "20-10-2024", role: 1011, id: 1 },
+    { start: "11-10-2024", end: "18-10-2024", role: 1011, id: 2 },
     // { start: "21-10-2024", end: "25-10-2024", role: 1011 },
     // { start: "21-10-2024", end: "26-10-2024", role: 1011 },
   ];
@@ -60,7 +61,8 @@ function App() {
       hasChild: datas.some((dat: Group) => item.id === dat.parent),
     }))
   );
-
+  const [data, setData] = useState(calData);
+const [updateKey,setUpdateKey]=useState(0)
   const handleExpand = (node: any) => {
     setEmployeeDatas((c) =>
       c.map((item: any) =>
@@ -68,25 +70,46 @@ function App() {
       )
     );
   };
-  const onDragEnd=()=>{}
-  const onResize=()=>{}
+  const onDragEnd = (dragData:any) => {
+    console.log(data)
+    setData((c) =>
+      c.map((item) =>
+        item.id === dragData?.row.id
+          ? { ...item, start: dragData?.start,end:dragData.end }
+          : item
+      )
+    );
+    setUpdateKey((k)=>k+1)
+  };
+  const onResize = (end: calandar) => {
+
+    setData((c) =>
+      c.map((item) =>
+        item.id === end.id
+          ? { ...item, end: dayjs(end.newDate).format(dateFormat) }
+          : item
+      )
+    );
+    setUpdateKey((k)=>k+1)
+  };
   return (
     <>
       <div className="bg-green-300  p-5 ">Scheduler Component</div>
       <div>
-        <SchedulerProvider>
-        <Scheduler
-          groupData={employeeDatas}
-          data={calData}
-          handleExpand={handleExpand}
-          expandIcon={<div>+</div>}
-          collapseIcon={<div>+</div>}
-          itemStartIcon={<div>:</div>}
-          itemEndIcon={<div>:</div>}
-          onDragEnd={onDragEnd}
-          onResize={onResize}
-        />
-        </SchedulerProvider>
+
+          <Scheduler
+            groupData={employeeDatas}
+            data={data}
+            handleExpand={handleExpand}
+            expandIcon={<div>+</div>}
+            collapseIcon={<div>+</div>}
+            itemStartIcon={<div>:</div>}
+            itemEndIcon={<div>:</div>}
+            updateKey={updateKey}
+            onDragEnd={onDragEnd}
+            onResize={onResize}
+          />
+
       </div>
     </>
   );

@@ -44,11 +44,12 @@ export const getCurrentRowData = (data: calandar[], group: Group) => {
   return data.filter((item: any) => item.role === group.id);
 };
 export const eventItemData = (
-  data: calandar,
+  data: calandar[],
   group: Group,
   day: CalendarColumnType
 ) => {
-  let datasOnCurrentRow = getCurrentRowData(data, group);
+  const datasOnCurrentRow = getCurrentRowData(data, group);
+
   const finalData: any = [];
   datasOnCurrentRow.forEach((item: any) => {
     const dateData = generateActiveColumnDates(
@@ -56,13 +57,11 @@ export const eventItemData = (
       dayjs(day.date).format(dateFormat)
     );
     if (dateData.length > 0) {
-      finalData.push(dateData);
+      finalData.push({dates:dateData,...item});
     }
   });
-  if(finalData>0){
-    console.log(finalData)
-  }
-  return finalData;
+
+  return finalData||[];
 };
 export const calculateRepeatedRanges = (data: calandar[]): number => {
   const rangeCount: Record<string, number> = {};
@@ -107,5 +106,3 @@ export const generateColumnHeight = (data: calandar[], group: Group) => {
     return styles.eventItemHeight + styles.eventItemContainerPadding * 2;
   }
 };
-
-

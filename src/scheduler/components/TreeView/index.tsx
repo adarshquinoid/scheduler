@@ -8,27 +8,21 @@ import React, {
 import { TreeProps, TreeRef } from "../../types/common";
 import { Group } from "../../types/datastructure";
 import { styles } from "../../helpers/constants";
-const getHeightFromView = (id: number | string) => {
-  var selectedRow = document.getElementById(`event-row-${id}`);
+import { generateColumnHeight } from "../../helpers/utilities";
 
-  if (selectedRow) {
-    // Get the height of the element
-    return selectedRow.clientHeight;
-  }
-  return styles.dayColHeight;
-};
 function ChildRenderer({
-  data,
+  groups,
   level,
   node,
   renderFunction,
   handleExpand,
+  data
 }: any) {
   let Level = level + 1;
-  if (data.length !== null) {
+  if (groups.length !== null) {
     return (
       <>
-        {data.map((item: Group) => (
+        {groups.map((item: Group) => (
           <React.Fragment key={item.id}>
             {item.parent === node.id && (
               <>
@@ -38,7 +32,7 @@ function ChildRenderer({
                   style={{
                     paddingLeft: Level * 20,
                     minHeight: styles.dayColHeight,
-                    height: getHeightFromView(item.id),
+                    height: generateColumnHeight(data,item),
                   }}
                   className="w-full  min-w-[300px] text-left cursor-pointer  border-t border-b border-[#EDEAE9]"
                 >
@@ -56,19 +50,20 @@ function ChildRenderer({
   }
 }
 const TreeView = forwardRef<TreeRef, TreeProps>(
-  ({ groups, handleExpand, treeHeader }, ref) => {
+  ({ groups, handleExpand, treeHeader,data }, ref) => {
     const contentRef = useRef<HTMLDivElement>(null);
     const [contentWidth, setContentWidth] = useState<number>(
       contentRef?.current?.clientWidth || 200
     );
 
     const renderFunction = (node: any, level: number) => {
-      const data: any = groups.filter((item: any) => item.parent === node.id);
+      const group: any = groups.filter((item: any) => item.parent === node.id);
       if (data.length > 0 && node.expand) {
         return (
           <ChildRenderer
             node={node}
             level={level}
+            groups={group}
             data={data}
             renderFunction={renderFunction}
             handleExpand={handleExpand}
@@ -104,7 +99,7 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
                     <div
                       style={{
                         minHeight: styles.dayColHeight,
-                        height: getHeightFromView(item.id),
+                        height: generateColumnHeight(data,item)
                       }}
                       id={`tree-${item.type}-${item.id}`}
                       onClick={() => handleExpand(item)}

@@ -6,9 +6,10 @@ import {
   DateYearBodyRowRef,
 } from "../../../../types/common";
 import DateYearBodyColumn from "./DateYearBodyColumn";
+import { calandar } from "../../../../types/datastructure";
 
 const DateYearBodyRow = forwardRef<DateYearBodyRowRef, DateYearBodyRowProps>(
-  ({ datesByYear, data, activeGroup }, ref) => {
+  ({ datesByYear, data, activeGroup,onResize,onDragEnd }, ref) => {
     const dateYearBodyColumnRef = useRef<DateYearBodyColumnRef>(null);
  
     useImperativeHandle(ref, () => ({
@@ -24,8 +25,10 @@ const DateYearBodyRow = forwardRef<DateYearBodyRowRef, DateYearBodyRowProps>(
       >
         <DateYearBodyColumn
           datesByYear={datesByYear}
-          data={data}
+          data={data.filter((item:calandar)=>item.role===activeGroup.id)}
+          onResize={onResize}
           ref={dateYearBodyColumnRef}
+          onDragEnd={onDragEnd}
           activeGroup={activeGroup}
         />
       </div>

@@ -1,18 +1,20 @@
-import dayjs from "dayjs";
+import dayjs, { Dayjs } from "dayjs";
+import customParseFormat from "dayjs/plugin/customParseFormat";
 import {
-    forwardRef,
-    useEffect,
-    useImperativeHandle,
-    useRef,
-    useState,
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+  useState,
 } from "react";
 import { dateFormat, styles } from "../../helpers/constants";
 import { EventItemProps, EventItemRef } from "../../types/common";
-
+dayjs.extend(customParseFormat);
 const EventItem = forwardRef<EventItemRef, EventItemProps>(
-  ({ activeData, item, handleDragStart }, ref) => {
-    const startDateItem = item[0];
-    const [dayCount,setDayCount]=useState(item.length);
+  ({ activeData, data, handleDragStart, onResize }, ref) => {
+    const startDateItem = data?.["dates"]?.[0];
+    const dayCount: number = data?.["dates"].length;
+
     const activeDate: String = dayjs(activeData.date).format(dateFormat);
     const eventItemContainerRef = useRef<HTMLDivElement>(null);
     const [dragWidth, setDragWidth] = useState<number>(styles.dayColWidth);
@@ -46,16 +48,32 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
 
     const onMouseLeave = () => {
       setResizable(false);
-      setCalculateDragWidth();
+      onResizeEnd();
     };
-    const setCalculateDragWidth = () => {
-      const remainingWidtth = dragWidth % styles.dayColWidth;
-      if (remainingWidtth !== 0) {
-        setCalculatedWidth(dragWidth - remainingWidtth + styles.dayColWidth);
-      } else {
-        setCalculatedWidth(dragWidth);
+    const onResizeEnd = () => {
+      const newWidth = dragWidth;
+
+      if (dragWidth !== calculatedWidth) {
+        const remainingWidtthToFill = newWidth % styles.dayColWidth;
+        let eventWidth;
+        if (remainingWidtthToFill !== 0) {
+          eventWidth = dragWidth - remainingWidtthToFill + styles.dayColWidth;
+        } else {
+          eventWidth = newWidth;
+        }
+
+        const differenceFromStartDate = eventWidth / styles.dayColWidth;
+
+        const actualDifference = differenceFromStartDate - 1;
+
+        const endDate: Dayjs = dayjs(startDateItem, dateFormat);
+
+        const draggedEndDate = endDate.add(actualDifference, "day");
+
+        onResize({ id: data.id, newDate: draggedEndDate });
       }
     };
+
     useEffect(() => {
       if (eventItemContainerRef?.current) {
         setEventContainerHeight(eventItemContainerRef?.current?.clientHeight);
@@ -70,12 +88,12 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
       },
     }));
     useEffect(() => {
-      if (item.length > 1) {
-        setCalculatedWidth(styles.dayColWidth * item.length);
+      if (dayCount > 1) {
+        setCalculatedWidth(styles.dayColWidth * dayCount);
       } else {
         setCalculatedWidth(styles.dayColWidth);
       }
-    }, [item]);
+    }, [dayCount, data]);
 
     return (
       <>
@@ -84,13 +102,20 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
             ref={resizeRef}
             draggable
             onMouseEnter={onMouseEnter}
-            onTouchStartCapture={onMouseEnter}
+            onTouchStart={onMouseEnter}
             onTouchEnd={onMouseLeave}
             onMouseLeave={onMouseLeave}
             style={{
               width: calculatedWidth,
             }}
-            onDragStart={(e) => handleDragStart(e, activeData)}
+            onDragStart={(e) =>
+              handleDragStart(
+                e,
+                activeDate,
+                data,
+                calculatedWidth / styles.dayColWidth-1
+              )
+            }
             id={`event-item-${activeDate}`}
             key={`event-item-${activeDate}`}
             className={` h-9 rounded-sm overflow-hidden ${

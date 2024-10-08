@@ -14,7 +14,7 @@ import DateYearBody from "./sections/yearView/DateYearBody";
 import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
-  ({ groups = [], data = [] }, ref) => {
+  ({ groups = [], data = [],onResize,updateKey ,onDragEnd}, ref) => {
     const monthYearRendererRef = useRef<MonthYearRendererRef>(null);
     const dateRendererRef = useRef<DateRendererRef>(null);
     const dateYearBodyRef = useRef<DateYearBodyRef>(null);
@@ -99,7 +99,10 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
           <DateYearBody
             datesByYear={datesByYear}
             groups={groups}
+            key={updateKey}
             data={data}
+            onDragEnd={onDragEnd}
+            onResize={onResize}
             ref={dateYearBodyRef}
           />
         </div>

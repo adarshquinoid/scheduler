@@ -8,6 +8,7 @@ import {
   SchedulerRef,
   TreeRef,
 } from "./types/common";
+import { SchedulerProvider } from "./providers/SchedulerProvider";
 
 const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
   (
@@ -16,12 +17,13 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       handleExpand,
       data = [],
       treeHeader = "",
-
+      onResize,
       expandIcon,
       collapseIcon,
       itemStartIcon,
       itemEndIcon,
       onDragEnd,
+      updateKey
 
     },
     ref
@@ -60,7 +62,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     };
     const scrollIntoView = () => {};
     return (
-      <React.Fragment>
+      <SchedulerProvider>
         <TopBar navigateToday={scrollIntoView} />
         <div
           className="scheduler"
@@ -79,6 +81,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
               handleExpand={handleExpand}
               expandIcon={expandIcon}
               collapseIcon={collapseIcon}
+              data={data}
               itemStartIcon={itemStartIcon}
               itemEndIcon={itemEndIcon}
               ref={treeRef}
@@ -89,12 +92,13 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
               groups={groupData}
               ref={calendarRef}
               data={data}
-       
+              updateKey={updateKey}
+              onResize={onResize}
               onDragEnd={onDragEnd}
             />
           </div>
         </div>
-      </React.Fragment>
+      </SchedulerProvider>
     );
   }
 );
