@@ -31,4 +31,6 @@ export type SchedulerModes={label:string, id:string}
 export type SchedulerContextType = {
     mode: SchedulerModes; 
     setMode: (mode: SchedulerModes) => void; 
+    dragItem: any; 
+    setDragItem: (item: any) => void; 
   };

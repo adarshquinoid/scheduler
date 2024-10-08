@@ -1,20 +1,21 @@
+import dayjs from "dayjs";
 import { forwardRef, useImperativeHandle, useRef } from "react";
+import { dateFormat } from "../../../../helpers/constants";
 import { generateColumnHeight } from "../../../../helpers/utilities";
 import {
+  CalendarColumnType,
   DateYearBodyColumnRef,
   DateYearBodyRowProps,
   DateYearBodyRowRef,
 } from "../../../../types/common";
-import DateYearBodyColumn from "./DateYearBodyColumn";
 import { calandar } from "../../../../types/datastructure";
+import DateYearBodyColumn from "./DateYearBodyColumn";
 
 const DateYearBodyRow = forwardRef<DateYearBodyRowRef, DateYearBodyRowProps>(
-  ({ datesByYear, data, activeGroup,onResize,onDragEnd }, ref) => {
+  ({ flattenedDates, data, activeGroup, onResize, onDragEnd }, ref) => {
     const dateYearBodyColumnRef = useRef<DateYearBodyColumnRef>(null);
- 
-    useImperativeHandle(ref, () => ({
 
-    }));
+    useImperativeHandle(ref, () => ({}));
 
     return (
       <div
@@ -23,14 +24,22 @@ const DateYearBodyRow = forwardRef<DateYearBodyRowRef, DateYearBodyRowProps>(
         className="flex z-1"
         style={{ height: generateColumnHeight(data, activeGroup) }}
       >
-        <DateYearBodyColumn
-          datesByYear={datesByYear}
-          data={data.filter((item:calandar)=>item.role===activeGroup.id)}
-          onResize={onResize}
-          ref={dateYearBodyColumnRef}
-          onDragEnd={onDragEnd}
-          activeGroup={activeGroup}
-        />
+        {flattenedDates.map((day: CalendarColumnType) => (
+          <DateYearBodyColumn
+            day={day}
+            key={`cal-row-${activeGroup.id}-col-${dayjs(day.date).format(
+              dateFormat
+            )}`}
+            id={`cal-row-${activeGroup.id}-col-${dayjs(day.date).format(
+              dateFormat
+            )}`}
+            data={data.filter((item: calandar) => item.role === activeGroup.id)}
+            onResize={onResize}
+            ref={dateYearBodyColumnRef}
+            onDragEnd={onDragEnd}
+            activeGroup={activeGroup}
+          />
+        ))}
       </div>
     );
   }

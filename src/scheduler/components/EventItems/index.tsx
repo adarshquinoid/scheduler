@@ -8,11 +8,8 @@ import EventItem from "./eventCard";
 const EventItemContainer = forwardRef<
   EventItemContainerRef,
   EventItemContainerProps
->(({ activeData, handleDragStart, onResize, groupedData }, ref) => {
+>(({ activeData, onResize, groupedData }, ref) => {
   const eventItemContainerRef = useRef<HTMLDivElement>(null);
-  if (groupedData.length > 0) {
-    console.log({ groupedData });
-  }
 
   return (
     <div className="absolute  left-0 ">
@@ -23,7 +20,6 @@ const EventItemContainer = forwardRef<
               activeData={activeData}
               data={item}
               onResize={onResize}
-              handleDragStart={handleDragStart}
             />
           ))}
         </div>

@@ -34,7 +34,6 @@ export const generateActiveColumnDates = (
   activeDate: String
 ): String[] => {
   if (dateRange.length > 0) {
-    //   console.log(dateRange, activeDate);
     return dateRange.some((item: String) => item === activeDate)
       ? dateRange
       : [];
@@ -105,4 +104,47 @@ export const generateColumnHeight = (data: calandar[], group: Group) => {
   } else {
     return styles.eventItemHeight + styles.eventItemContainerPadding * 2;
   }
+};
+
+export const generateDatesByMonth = (
+  activeYear: number
+): Record<number, CalendarColumnType[]> => {
+  const today = new Date();
+  const todayYear = today.getFullYear();
+  const todayMonth = today.getMonth();
+  const todayDate = today.getDate();
+  const datesByMonth: Record<number, CalendarColumnType[]> = {};
+
+  for (let month = 0; month < 12; month++) {
+    const daysInMonth = new Date(activeYear, month + 1, 0).getDate();
+    const dates: CalendarColumnType[] = [];
+
+    for (let day = 1; day <= daysInMonth; day++) {
+      const date = new Date(activeYear, month, day);
+      const isCurrentDay =
+        activeYear === todayYear &&
+        month === todayMonth &&
+        day === todayDate;
+      const isHoliday = date.getDay() === 0 || date.getDay() === 6;
+      dates.push({
+        date,
+        isCurrentDay,
+        isHoliday,
+      });
+    }
+
+    datesByMonth[month] = dates;
+  }
+
+  return datesByMonth;
+};
+
+export  const generateDatesByYears = (yearArray:number[]) => {
+  const datesByYearData: any = {};
+
+  yearArray.forEach((year) => {
+    datesByYearData[year] = generateDatesByMonth(year);
+  });
+
+  return datesByYearData;
 };

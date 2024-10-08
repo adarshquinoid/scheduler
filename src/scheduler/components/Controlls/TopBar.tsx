@@ -6,7 +6,7 @@ import { TopBarProps, TopBarRef } from "../../types/common";
 const TopBar = forwardRef<TopBarRef, TopBarProps>(({ navigateToday },ref) => {
   const { mode, setMode } = useScheduler();
   useEffect(() => {
-    // console.log(mode);
+
   }, [mode]);
 
   return (

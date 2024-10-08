@@ -83,7 +83,7 @@ function App() {
     );
   };
   const onDragEnd = (dragData: any) => {
-    console.log(data);
+ 
     setData((c) =>
       c.map((item) =>
         item.id === dragData?.row.id
@@ -93,6 +93,7 @@ function App() {
     );
     setUpdateKey((k) => k + 1);
   };
+
   const onResize = (end: calandar) => {
     setData((c) =>
       c.map((item) =>

@@ -12,16 +12,18 @@ import {
 import DateRenderer from "./sections/yearView/DateRenderer";
 import DateYearBody from "./sections/yearView/DateYearBody";
 import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
+import {
+  generateDatesByMonth,
+  generateDatesByYears,
+} from "../../helpers/utilities";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
-  ({ groups = [], data = [],onResize,updateKey ,onDragEnd}, ref) => {
+  ({ groups = [], data = [], onResize, updateKey, onDragEnd }, ref) => {
     const monthYearRendererRef = useRef<MonthYearRendererRef>(null);
     const dateRendererRef = useRef<DateRendererRef>(null);
     const dateYearBodyRef = useRef<DateYearBodyRef>(null);
     const today = new Date();
     const todayYear = today.getFullYear();
-    const todayMonth = today.getMonth();
-    const todayDate = today.getDate();
 
     const [loadedYears, setLoadedYears] = useState([
       todayYear - 1,
@@ -29,46 +31,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
       todayYear + 1,
     ]);
 
-    const generateDatesByMonth = (
-      activeYear: number
-    ): Record<number, CalendarColumnType[]> => {
-      const datesByMonth: Record<number, CalendarColumnType[]> = {};
-
-      for (let month = 0; month < 12; month++) {
-        const daysInMonth = new Date(activeYear, month + 1, 0).getDate();
-        const dates: CalendarColumnType[] = [];
-
-        for (let day = 1; day <= daysInMonth; day++) {
-          const date = new Date(activeYear, month, day);
-          const isCurrentDay =
-            activeYear === todayYear &&
-            month === todayMonth &&
-            day === todayDate;
-          const isHoliday = date.getDay() === 0 || date.getDay() === 6;
-          dates.push({
-            date,
-            isCurrentDay,
-            isHoliday,
-          });
-        }
-
-        datesByMonth[month] = dates;
-      }
-
-      return datesByMonth;
-    };
-
-    const generateDatesByYears = () => {
-      const datesByYearData: any = {};
-
-      loadedYears.forEach((year) => {
-        datesByYearData[year] = generateDatesByMonth(year);
-      });
-
-      return datesByYearData;
-    };
-
-    const datesByYear: any = generateDatesByYears();
+    const datesByYear: any = generateDatesByYears(loadedYears);
 
     useImperativeHandle(ref, () => ({
       loadNext: () => {
@@ -85,9 +48,10 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
           return newYears;
         });
       },
-  
     }));
-
+    const flattenedDates: any = Object.values(datesByYear).flatMap(
+      (months: any) => Object.values(months).flat()
+    );
     return (
       <div className="flex flex-col over">
         <div>
@@ -97,7 +61,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
           />
           <DateRenderer datesByYear={datesByYear} ref={dateRendererRef} />
           <DateYearBody
-            datesByYear={datesByYear}
+            flattenedDates={flattenedDates}
             groups={groups}
             key={updateKey}
             data={data}

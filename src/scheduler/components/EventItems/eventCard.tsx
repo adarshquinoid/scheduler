@@ -9,9 +9,11 @@ import {
 } from "react";
 import { dateFormat, styles } from "../../helpers/constants";
 import { EventItemProps, EventItemRef } from "../../types/common";
+import { useScheduler } from "../../providers/SchedulerProvider";
 dayjs.extend(customParseFormat);
 const EventItem = forwardRef<EventItemRef, EventItemProps>(
-  ({ activeData, data, handleDragStart, onResize }, ref) => {
+  ({ activeData, data,  onResize }, ref) => {
+    const {setDragItem } = useScheduler();
     const startDateItem = data?.["dates"]?.[0];
     const dayCount: number = data?.["dates"].length;
 
@@ -94,7 +96,15 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
         setCalculatedWidth(styles.dayColWidth);
       }
     }, [dayCount, data]);
+const handleDragStart=(e:any)=>{
+  e.dataTransfer.setData("text/plain", activeDate);
+  e.dataTransfer.effectAllowed = "move";
 
+  setDragItem({selection:activeDate,
+    row:data,
+    length:calculatedWidth / styles.dayColWidth - 1})
+
+}
     return (
       <>
         {activeDate === startDateItem && (
@@ -109,14 +119,7 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
               width: calculatedWidth,
               background: data?.background,
             }}
-            onDragStart={(e) =>
-              handleDragStart(
-                e,
-                activeDate,
-                data,
-                calculatedWidth / styles.dayColWidth - 1
-              )
-            }
+            onDragStart={handleDragStart}
             id={`event-item-${activeDate}`}
             key={`event-item-${activeDate}`}
             className={` h-9 rounded-sm overflow-hidden ${
