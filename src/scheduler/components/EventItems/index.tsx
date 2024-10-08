@@ -1,4 +1,4 @@
-import { forwardRef, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import {
   EventItemContainerProps,
   EventItemContainerRef,
@@ -10,13 +10,14 @@ const EventItemContainer = forwardRef<
   EventItemContainerProps
 >(({ activeData, onResize, groupedData }, ref) => {
   const eventItemContainerRef = useRef<HTMLDivElement>(null);
-
+  useImperativeHandle(ref, () => ({}));
   return (
     <div className="absolute  left-0 ">
       {groupedData?.length > 0 && (
         <div className=" flex flex-col gap-2" ref={eventItemContainerRef}>
           {groupedData?.map((item: any) => (
             <EventItem
+              key={`event-item-${item.start}-${item.end}`}
               activeData={activeData}
               data={item}
               onResize={onResize}

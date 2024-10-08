@@ -12,8 +12,8 @@ import { EventItemProps, EventItemRef } from "../../types/common";
 import { useScheduler } from "../../providers/SchedulerProvider";
 dayjs.extend(customParseFormat);
 const EventItem = forwardRef<EventItemRef, EventItemProps>(
-  ({ activeData, data,  onResize }, ref) => {
-    const {setDragItem } = useScheduler();
+  ({ activeData, data, onResize }, ref) => {
+    const { setDragItem } = useScheduler();
     const startDateItem = data?.["dates"]?.[0];
     const dayCount: number = data?.["dates"].length;
 
@@ -81,6 +81,25 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
         setEventContainerHeight(eventItemContainerRef?.current?.clientHeight);
       }
     }, [eventItemContainerRef?.current?.clientHeight]);
+
+    useEffect(() => {
+      if (dayCount > 1) {
+        setCalculatedWidth(styles.dayColWidth * dayCount);
+      } else {
+        setCalculatedWidth(styles.dayColWidth);
+      }
+    }, [dayCount, data]);
+    const handleDragStart = (e: any) => {
+      e.dataTransfer.setData("text/plain", activeDate);
+      e.dataTransfer.effectAllowed = "move";
+
+      setDragItem({
+        selection: activeDate,
+        row: data,
+        length: calculatedWidth / styles.dayColWidth - 1,
+      });
+    };
+
     useImperativeHandle(ref, () => ({
       getRowHeight: () => {
         if (eventItemContainerRef?.current) {
@@ -89,22 +108,6 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
         return styles.eventItemHeight;
       },
     }));
-    useEffect(() => {
-      if (dayCount > 1) {
-        setCalculatedWidth(styles.dayColWidth * dayCount);
-      } else {
-        setCalculatedWidth(styles.dayColWidth);
-      }
-    }, [dayCount, data]);
-const handleDragStart=(e:any)=>{
-  e.dataTransfer.setData("text/plain", activeDate);
-  e.dataTransfer.effectAllowed = "move";
-
-  setDragItem({selection:activeDate,
-    row:data,
-    length:calculatedWidth / styles.dayColWidth - 1})
-
-}
     return (
       <>
         {activeDate === startDateItem && (
