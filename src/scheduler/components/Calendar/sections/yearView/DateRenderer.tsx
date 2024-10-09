@@ -21,7 +21,7 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
       onClick: () => {},
     }));
     useEffect(()=>{
-      navigateToToday()
+      // navigateToToday()
     },[])
     return (
       <div className="flex h-[24px]">

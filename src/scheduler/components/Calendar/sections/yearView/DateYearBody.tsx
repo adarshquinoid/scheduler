@@ -6,6 +6,7 @@ import {
 } from "../../../../types/common";
 import { Group } from "../../../../types/datastructure";
 import DateYearBodyRow from "./DateYearBodyRow";
+import { styles } from "../../../../helpers/constants";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
   ({ flattenedDates, groups, data, onResize, onDragEnd }, ref) => {
@@ -24,10 +25,14 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
     useImperativeHandle(ref, () => ({
       navigateToday: () => {},
     }));
-
+    const gridSize = styles.dayColWidth;
     return (
-      <div>
-        {groups.map(
+      <svg
+        width={flattenedDates.length * gridSize}
+        height={groups.length * styles.dayColHeight}
+      >
+        
+        {/* {groups.map(
           (grp: Group) =>
             checkForRows(grp) && (
               
@@ -42,8 +47,43 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
                 activeGroup={grp}
               />
             )
-        )}
-      </div>
+        )} */}
+        <defs>
+          <pattern
+            id="smallGrid"
+            width={gridSize}
+            height={gridSize}
+            patternUnits="userSpaceOnUse"
+          >
+            <path
+              d={`M ${gridSize} 0 L 0 0 0 ${gridSize}`}
+              fill="none"
+              stroke="gray"
+              strokeWidth="0.5"
+            />
+          </pattern>
+          <pattern
+            id="grid"
+            width={gridSize * 5}
+            height={gridSize * 5}
+            patternUnits="userSpaceOnUse"
+          >
+            <rect
+              width={gridSize * 5}
+              height={gridSize * 5}
+              fill="url(#smallGrid)"
+            />
+            {/* <path
+              d={`M ${gridSize * 5} 0 L 0 0 0 ${gridSize * 5}`}
+              fill="none"
+              stroke="gray"
+              strokeWidth="0.5"
+            /> */}
+          </pattern>
+        </defs>
+        <rect         width={flattenedDates.length * gridSize}
+        height={groups.length * styles.dayColHeight} fill="url(#grid)"/>
+      </svg>
     );
   }
 );
