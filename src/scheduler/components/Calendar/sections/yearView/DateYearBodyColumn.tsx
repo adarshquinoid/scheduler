@@ -64,7 +64,7 @@ const DateYearBodyColumn = forwardRef<
           width: styles.dayColWidth,
           minHeight: styles.dayColHeight,
           borderColor: styles.dayColBorderColor,
-          height: eventItemContainerRef?.current?.getRowHeight(),
+          height: eventItemContainerRef?.current?.getRowHeight() || undefined,
         }}
         className={`border-b border-r h-auto relative  z-1 flex items-center justify-center `}
       >

@@ -4,13 +4,21 @@ import {
   EventItemContainerRef,
 } from "../../types/common";
 import EventItem from "./eventCard";
+import { styles } from "../../helpers/constants";
 
 const EventItemContainer = forwardRef<
   EventItemContainerRef,
   EventItemContainerProps
 >(({ activeData, onResize, groupedData }, ref) => {
   const eventItemContainerRef = useRef<HTMLDivElement>(null);
-  useImperativeHandle(ref, () => ({}));
+  useImperativeHandle(ref, () => ({
+    getRowHeight: () => {
+      if (eventItemContainerRef?.current) {
+        return eventItemContainerRef?.current?.clientHeight;
+      }
+      return styles.eventItemHeight;
+    }
+  }));
   return (
     <div className="absolute  left-0 ">
       {groupedData?.length > 0 && (
