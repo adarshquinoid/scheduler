@@ -26,6 +26,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
       navigateToday: () => {},
     }));
     const gridSize = styles.dayColWidth;
+    const gridHeight = styles.dayColHeight;
     return (
       <svg
         width={flattenedDates.length * gridSize}
@@ -52,11 +53,11 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
           <pattern
             id="smallGrid"
             width={gridSize}
-            height={gridSize}
+            height={gridHeight}
             patternUnits="userSpaceOnUse"
           >
             <path
-              d={`M ${gridSize} 0 L 0 0 0 ${gridSize}`}
+              d={`M ${gridSize} 0 L 0 0 0 ${gridHeight}`}
               fill="none"
               stroke="gray"
               strokeWidth="0.5"
@@ -65,12 +66,12 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
           <pattern
             id="grid"
             width={gridSize * 5}
-            height={gridSize * 5}
+            height={gridHeight * 5}
             patternUnits="userSpaceOnUse"
           >
             <rect
               width={gridSize * 5}
-              height={gridSize * 5}
+              height={gridHeight * 5}
               fill="url(#smallGrid)"
             />
             {/* <path

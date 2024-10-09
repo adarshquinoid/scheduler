@@ -1,4 +1,9 @@
-import React, { forwardRef, useEffect, useImperativeHandle, useRef } from "react";
+import React, {
+  forwardRef,
+  useEffect,
+  useImperativeHandle,
+  useRef,
+} from "react";
 import {
   CalendarColumnType,
   DateRendererProps,
@@ -20,9 +25,9 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
     useImperativeHandle(ref, () => ({
       onClick: () => {},
     }));
-    useEffect(()=>{
-      // navigateToToday()
-    },[])
+    useEffect(() => {
+      navigateToToday();
+    }, []);
     return (
       <div className="flex h-[24px]">
         {Object.keys(datesByYear).map((yr: any) => (
@@ -40,24 +45,23 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
                     color: day.isCurrentDay
                       ? styles.currentDayIndicatorColor
                       : styles.dayColHeaderColor,
-                      borderColor:day.isCurrentDay?styles.currentDayColHeaderBorderColor:styles.dayColHeaderBorderColor
+                    borderColor: day.isCurrentDay
+                      ? styles.currentDayColHeaderBorderColor
+                      : styles.dayColHeaderBorderColor,
                   }}
                 >
-             
-
-                  {day.isCurrentDay? (
-                              <div
-                           className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal"
-                                ref={currentDayRef}
-                              >
-
-                                {dayjs(day.date).format("DD")}
-                              </div>
-                            ):(
-                              <div className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal">
-                              {dayjs(day.date).format("DD")}
-                              </div>
-                            )}
+                  {day.isCurrentDay ? (
+                    <div
+                      className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal"
+                      ref={currentDayRef}
+                    >
+                      {dayjs(day.date).format("DD")}
+                    </div>
+                  ) : (
+                    <div className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal">
+                      {dayjs(day.date).format("DD")}
+                    </div>
+                  )}
                 </div>
               ))
             )}
