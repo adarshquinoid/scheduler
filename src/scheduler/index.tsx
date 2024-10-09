@@ -23,8 +23,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       itemStartIcon,
       itemEndIcon,
       onDragEnd,
-      updateKey
-
+      updateKey,
     },
     ref
   ) => {
@@ -32,6 +31,9 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     const treeRef = useRef<TreeRef>(null);
     const calendarRef = useRef<CalendarRef>(null);
     const schedulerRef = useRef<
+      HTMLDivElement 
+    >(null);
+    const calendarContainerRef = useRef<
       HTMLDivElement & { previousScrollLeft?: number }
     >(null);
     useImperativeHandle(ref, () => ({
@@ -39,19 +41,19 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     }));
 
     const handleScroll = () => {
-      if (schedulerRef.current) {
-        const scrollLeft = schedulerRef.current.scrollLeft;
-        const scrollWidth = schedulerRef.current.scrollWidth;
-        const clientWidth = schedulerRef.current.clientWidth;
+      if (calendarContainerRef.current) {
+        const scrollLeft = calendarContainerRef.current.scrollLeft;
+        const scrollWidth = calendarContainerRef.current.scrollWidth;
+        const clientWidth = calendarContainerRef.current.clientWidth;
         const scrollPositionToRight = scrollWidth - (scrollLeft + clientWidth);
         const scrollPositionBefore = scrollPositionToRight;
         const threshold = 10;
         if (scrollLeft === 0) {
           calendarRef?.current?.loadPrevious();
           setTimeout(() => {
-            if (schedulerRef.current) {
-              const newScrollWidth = schedulerRef.current.scrollWidth;
-              schedulerRef.current.scrollLeft =
+            if (calendarContainerRef.current) {
+              const newScrollWidth = calendarContainerRef.current.scrollWidth;
+              calendarContainerRef.current.scrollLeft =
                 newScrollWidth - clientWidth - scrollPositionBefore;
             }
           }, 0);
@@ -64,12 +66,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     return (
       <SchedulerProvider>
         <TopBar navigateToday={scrollIntoView} />
-        <div
-          className="scheduler"
-          id="scheduler"
-          ref={schedulerRef}
-          onScroll={handleScroll}
-        >
+        <div className="scheduler" id="scheduler" ref={schedulerRef}>
           <div
             className="tree-container"
             id="tree-container"
@@ -87,7 +84,12 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
               ref={treeRef}
             />
           </div>
-          <div className="calandar-container" id="calandar-container">
+          <div
+            className="calandar-container"
+            id="calandar-container"
+            ref={calendarContainerRef}
+            onScroll={handleScroll}
+          >
             <Calandar
               groups={groupData}
               ref={calendarRef}

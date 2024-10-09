@@ -7,7 +7,7 @@
   width: 100%;
   position: relative;
   border: 1px solid #e5e7eb;
-  overflow: auto;
+
   // -ms-overflow-style: none; /* IE and Edge */
   // scrollbar-width: none; /* Firefox */
 
@@ -38,5 +38,6 @@
   .calandar-container {
     display: flex;
     width: 100%;
+    overflow: auto;
   }
 }

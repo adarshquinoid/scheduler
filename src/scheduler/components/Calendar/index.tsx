@@ -52,6 +52,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
     const flattenedDates: any = Object.values(datesByYear).flatMap(
       (months: any) => Object.values(months).flat()
     );
+    console.log(flattenedDates)
     return (
       <div className="flex flex-col over">
         <div>
@@ -60,7 +61,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
             ref={monthYearRendererRef}
           />
           <DateRenderer datesByYear={datesByYear} ref={dateRendererRef} />
-          <DateYearBody
+           <DateYearBody
             flattenedDates={flattenedDates}
             groups={groups}
             key={updateKey}
@@ -68,7 +69,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
             onDragEnd={onDragEnd}
             onResize={onResize}
             ref={dateYearBodyRef}
-          />
+          /> 
         </div>
       </div>
     );
