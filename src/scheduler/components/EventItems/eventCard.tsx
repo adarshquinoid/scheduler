@@ -90,7 +90,7 @@ const EventItem = forwardRef<EventItemRef, EventItemProps>(
       }
     }, [dayCount, data]);
     const handleDragStart = (e: any) => {
-      e.dataTransfer.setData("text/plain", activeDate);
+      // e.dataTransfer.setData("text/plain", activeDate);
       e.dataTransfer.effectAllowed = "move";
 
       setDragItem({

@@ -13,27 +13,29 @@ const EventItemContainer = forwardRef<
   const eventItemContainerRef = useRef<HTMLDivElement>(null);
   useImperativeHandle(ref, () => ({
     getRowHeight: () => {
-      if (eventItemContainerRef?.current) {
-        return eventItemContainerRef?.current?.clientHeight;
-      }
+      // if (eventItemContainerRef?.current) {
+      //   return eventItemContainerRef?.current?.clientHeight;
+      // }
       return styles.eventItemHeight;
-    }
+    },
   }));
   return (
-    <div className="absolute  left-0 ">
+    <>
       {groupedData?.length > 0 && (
-        <div className=" flex flex-col gap-2" ref={eventItemContainerRef}>
-          {groupedData?.map((item: any) => (
-            <EventItem
-              key={`event-item-${item.start}-${item.end}`}
-              activeData={activeData}
-              data={item}
-              onResize={onResize}
-            />
-          ))}
+        <div className="absolute  left-0 ">
+          <div className=" flex flex-col gap-2" ref={eventItemContainerRef}>
+            {groupedData?.map((item: any) => (
+              <EventItem
+                key={`event-item-${item.start}-${item.end}`}
+                activeData={activeData}
+                data={item}
+                onResize={onResize}
+              />
+            ))}
+          </div>
         </div>
       )}
-    </div>
+    </>
   );
 });
 

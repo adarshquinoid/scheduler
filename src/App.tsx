@@ -10,6 +10,7 @@ function App() {
     { name: "Bahri", parent: null, id: 1, expand: false, type: "tenent" },
     { name: "Alanood (SAR)", parent: 1, id: 101, expand: false, type: "group" },
     { name: "Master", parent: 101, id: 1011, expand: false, type: "role" },
+    { name: "", parent: 101, id: 1013, expand: false, type: "role" },
     {
       name: "Chief Officer",
       parent: 101,
@@ -17,7 +18,7 @@ function App() {
       expand: false,
       type: "role",
     },
-    // { name: "2nd Officer", parent: 101, id: 1013, expand: false, type: "role" },
+   
     // { name: "3rd Officer", parent: 101, id: 1014, expand: false, type: "role" },
     // {
     //   name: "Chief Engineer",
@@ -57,9 +58,16 @@ function App() {
       background: "red",
     },
     {
-      start: "11-10-2024",
-      end: "18-10-2024",
+      start: "21-10-2024",
+      end: "28-10-2024",
       role: 1011,
+      id: 2,
+      background: "yellow",
+    },
+    {
+      start: "21-10-2024",
+      end: "28-10-2024",
+      role: 1013,
       id: 2,
       background: "yellow",
     },

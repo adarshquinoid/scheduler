@@ -28,6 +28,8 @@ const DateYearBodyColumn = forwardRef<
 
   const handleDrop = (e: React.DragEvent<HTMLDivElement>, target: string) => {
     e.preventDefault();
+    console.log(dragItem)
+    if(dragItem){
     const startDate: Dayjs = dayjs(target, dateFormat);
 
     const draggedEndDate = startDate.add(dragItem.length, "day");
@@ -41,7 +43,7 @@ const DateYearBodyColumn = forwardRef<
         end: dayjs(draggedEndDate).format(dateFormat),
       });
     }
-    setDragItem(null);
+    setDragItem(null);}
     // Handle your drop logic here, e.g., updating state, sending data to a server, etc.
   };
 

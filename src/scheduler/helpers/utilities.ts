@@ -95,15 +95,15 @@ export const generateColumnHeight = (data: calandar[], group: Group) => {
   let datasOnCurrentRow = getCurrentRowData(data, group);
   let actualLength = calculateRepeatedRanges(datasOnCurrentRow);
 
-  if (actualLength > 1) {
-    return (
-      styles.eventItemHeight * actualLength +
-      (actualLength - 1) * styles.eventItemContainerGap +
-      styles.eventItemContainerPadding * 2
-    );
-  } else {
+  // if (actualLength > 1) {
+  //   return (
+  //     styles.eventItemHeight * actualLength +
+  //     (actualLength - 1) * styles.eventItemContainerGap +
+  //     styles.eventItemContainerPadding * 2
+  //   );
+  // } else {
     return styles.eventItemHeight + styles.eventItemContainerPadding * 2;
-  }
+  // }
 };
 
 export const generateDatesByMonth = (
