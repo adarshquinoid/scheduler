@@ -32,35 +32,128 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
     const renderEvents = () => {
       const events: any[] = [];
-     
+
       data.forEach((_items: any, _index: number) => {
-        const groupIndex=groups.findIndex((grp:any)=>grp.id===_items.role)
+        const groupIndex = groups.findIndex(
+          (grp: any) => grp.id === _items.role
+        );
         const eventDates = createDateRange(_items);
-        flattenedDates?.forEach((item:any,ind:number)=>{
-          if(dayjs(item.date).format(dateFormat)===_items.start){
-         
+        flattenedDates?.forEach((item: any, ind: number) => {
+          if (dayjs(item.date).format(dateFormat) === _items.start) {
             events.push(
               <div
-                className="absolute "
+                className="absolute z-20"
                 style={{
-                  width: (gridSize*eventDates.length)-4,
-                  height: gridHeight-10,
-                  left: (ind * gridSize)+2,
-                  background:_items.background,
-                  top: groupIndex * gridHeight+5,
+                  width: gridSize * eventDates.length,
+                  height: gridHeight - 10,
+                  left: ind * gridSize ,
+                  borderRadius:6,
+
+                  top: groupIndex * gridHeight + 5,
                 }}
-              />
+              >
+
+<div
+                className=" z-20 flex items-center justify-center"
+                style={{
+                  width: (gridSize * eventDates.length)-2,
+                  height: gridHeight - 10,
+           
+                  borderRadius:6,
+                  background: _items.background,
+             
+                }}
+              >
+
+                
+              </div>
+              </div>
             );
           }
-        })
-
-   
+        });
       });
 
       return <>{events}</>;
     };
+    const renderHolidays = () => {
+      const holidayBlock: any[] = [];
+      flattenedDates?.forEach((item: any, ind: number) => {
+        if (item.isHoliday) {
+          holidayBlock.push(
+            <div
+              style={{
+                top: 0,
+                background: styles.dayColHolidayBG,
+                width: gridSize,
+                left: ind * gridSize,
+              }}
+              className="h-full absolute"
+            >
+              <svg
+                width={gridSize}
+                height={groups.length * styles.dayColHeight}
+              >
+                <defs>
+                  <pattern
+                    id="smallGrid"
+                    width={gridSize}
+                    height={gridHeight}
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <path
+                      d={`M ${gridSize} 0 L 0 0 0 ${gridHeight}`}
+                      fill="none"
+                      stroke="gray"
+                      strokeWidth="0.5"
+                    />
+                  </pattern>
+                  <pattern
+                    id="grid"
+                    width={gridSize * 5}
+                    height={gridHeight * 5}
+                    patternUnits="userSpaceOnUse"
+                  >
+                    <rect
+                      width={gridSize * 5}
+                      height={gridHeight * 5}
+                      fill="url(#smallGrid)"
+                    />
+                  </pattern>
+                </defs>
+                <rect
+                  width={gridSize}
+                  height={groups.length * styles.dayColHeight}
+                  fill="url(#grid)"
+                />
+              </svg>
+            </div>
+          );
+        }
+      });
+      return <>{holidayBlock}</>;
+    };
+    const renderTodayBlock = () => {
+      const todayBlock: any[] = [];
+      flattenedDates?.forEach((item: any, ind: number) => {
+        if (item.isCurrentDay) {
+          todayBlock.push(
+            <div
+              style={{
+                top: 0,
+                background: styles.currentDayIndicatorBGColor,
+
+                left: ind * gridSize + 20,
+              }}
+              className="h-full w-1 z-30 absolute"
+            />
+          );
+        }
+      });
+      return <>{todayBlock}</>;
+    };
     return (
       <div className="relative">
+        {renderHolidays()}
         <svg
           width={flattenedDates.length * gridSize}
           height={groups.length * styles.dayColHeight}
@@ -99,6 +192,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
           />
         </svg>
         {renderEvents()}
+        {renderTodayBlock()}
       </div>
     );
   }

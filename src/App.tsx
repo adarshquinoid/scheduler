@@ -51,25 +51,25 @@ function App() {
 
   const calData = [
     {
-      start: "10-10-2024",
+      start: "01-10-2024",
       end: "20-10-2024",
       role: 1011,
       id: 1,
-      background: "red",
+      background: "#008E9D",
     },
     {
       start: "21-10-2024",
       end: "28-10-2024",
       role: 1011,
       id: 2,
-      background: "yellow",
+      background: "#4F5DA7",
     },
     {
       start: "18-10-2024",
       end: "28-10-2024",
       role: 1013,
       id: 2,
-      background: "green",
+      background: "#4F5DA7",
     },
     // { start: "21-10-2024", end: "25-10-2024", role: 1011 },
     // { start: "21-10-2024", end: "26-10-2024", role: 1011 },
