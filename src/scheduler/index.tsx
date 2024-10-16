@@ -64,7 +64,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     };
     const scrollIntoView = () => {};
     return (
-      <SchedulerProvider>
+      <>
         <TopBar navigateToday={scrollIntoView} />
         <div className="scheduler" id="scheduler" ref={schedulerRef}>
           <div
@@ -100,7 +100,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             />
           </div>
         </div>
-      </SchedulerProvider>
+      </>
     );
   }
 );

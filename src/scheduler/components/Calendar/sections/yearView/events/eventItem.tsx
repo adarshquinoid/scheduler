@@ -1,6 +1,6 @@
+import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { dateFormat, styles } from "../../../../../helpers/constants";
-import dayjs, { Dayjs } from "dayjs";
 
 const EventItem: React.FC<any> = ({
   gridSize,
@@ -26,9 +26,11 @@ const EventItem: React.FC<any> = ({
   const [dragWidth, setDragWidth] = useState<number>(styles.dayColWidth);
   const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
   const handleDragStart = (e: any) => {
+  
     // e.dataTransfer.setData("text/plain", activeDate);
     e.dataTransfer.effectAllowed = "move";
     const { clientX, clientY } = e;
+    console.log( "init",clientX - position.left)
     setInitialPosition({
       x: clientX - position.left,
       y: clientY - position.top,
@@ -40,15 +42,24 @@ const EventItem: React.FC<any> = ({
     //   length: calculatedWidth / styles.dayColWidth - 1,
     // });
   };
+
   const handleDrag = (e: any) => {
     if (e.clientX === 0 && e.clientY === 0) return; // Prevents issues when dragging outside
     const newLeft = e.clientX - initialPosition.x;
-    const newTop = e.clientY - initialPosition.y;
-    setPosition((c) => ({ ...c, left: newLeft ,top:newTop}));
+    // const newTop = e.clientY - initialPosition.y;
+    setPosition((c) => ({ ...c, left: newLeft ,
+      // top:newTop
+    }));
+
   };
 
-  const handleDragEnd = () => {
-    // Handle any cleanup or final actions if necessary
+  const handleDragEnd = (e:any) => {
+    if (e.clientX === 0 && e.clientY === 0) return; // Prevents issues when dragging outside
+    const newLeft = e.clientX - initialPosition.x;
+    // const newTop = e.clientY - initialPosition.y;
+    setPosition((c) => ({ ...c, left: newLeft ,
+      // top:newTop
+    }));
   };
   useEffect(() => {
     setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
