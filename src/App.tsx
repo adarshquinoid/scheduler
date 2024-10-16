@@ -18,7 +18,7 @@ function App() {
       expand: false,
       type: "role",
     },
-   
+
     { name: "3rd Officer", parent: 101, id: 1014, expand: false, type: "role" },
     {
       name: "Chief Engineer",
@@ -56,6 +56,38 @@ function App() {
       role: 1011,
       id: 1,
       background: "#008E9D",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
     },
     {
       start: "21-10-2024",
@@ -63,6 +95,33 @@ function App() {
       role: 1011,
       id: 2,
       background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
     },
     {
       start: "18-10-2024",
@@ -70,6 +129,29 @@ function App() {
       role: 1013,
       id: 2,
       background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+    
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
     },
     // { start: "21-10-2024", end: "25-10-2024", role: 1011 },
     // { start: "21-10-2024", end: "26-10-2024", role: 1011 },
@@ -91,7 +173,6 @@ function App() {
     );
   };
   const onDragEnd = (dragData: any) => {
- 
     setData((c) =>
       c.map((item) =>
         item.id === dragData?.row.id
