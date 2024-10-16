@@ -33,6 +33,29 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
     }));
     const gridSize = styles.dayColWidth;
     const gridHeight = styles.dayColHeight;
+    const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault();
+      // console.log(dragItem)
+      // if(dragItem){
+      // const startDate: Dayjs = dayjs(target, dateFormat);
+
+      // const draggedEndDate = startDate.add(dragItem.length, "day");
+
+      // if (dragItem?.row?.id) {
+
+      //   onDragEnd({
+      //     row: dragItem?.row,
+      //     start: target,
+      //     end: dayjs(draggedEndDate).format(dateFormat),
+      //   });
+      // }
+      // setDragItem(null);}
+      // Handle your drop logic here, e.g., updating state, sending data to a server, etc.
+    };
+
+    const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+      e.preventDefault(); // Necessary to allow dropping
+    };
 
     const renderEvents = () => {
       const events: any[] = [];
@@ -44,20 +67,21 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
         flattenedDates?.forEach((item: any, ind: number) => {
           if (dayjs(item.date).format(dateFormat) === _items.start) {
             events.push({
-              gridSize:gridSize,
-              gridHeight:gridHeight,
-              eventLength:eventDates.length,
-             ind:ind,
-             groupIndex:groupIndex,
+              ..._items,
+              gridSize: gridSize,
+              gridHeight: gridHeight,
+              eventLength: eventDates.length,
+              ind: ind,
+              groupIndex: groupIndex,
 
               background: _items.background,
-       
-              data:_items?.labels
+
+              data: _items?.labels,
             });
           }
         });
       });
-console.log(events)
+      console.log(events);
       return (
         <>
           {events?.map((item: any) => (
@@ -97,7 +121,11 @@ console.log(events)
     };
 
     return (
-      <div className="relative">
+      <div
+        className="relative"
+        onDragOver={handleDragOver}
+        onDrop={(e) => handleDrop(e)}
+      >
         {renderHolidays()}
         <Columns
           containerWidth={flattenedDates.length * gridSize}

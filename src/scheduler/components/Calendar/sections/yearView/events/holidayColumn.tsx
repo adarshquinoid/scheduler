@@ -20,7 +20,7 @@ const HolidayColumnRender:React.FC<any> = ({left,height}) => {
     >
       <defs>
         <pattern
-          id="smallGrid"
+          id="holidayCol"
           width={gridSize}
           height={gridHeight}
           patternUnits="userSpaceOnUse"
@@ -28,27 +28,16 @@ const HolidayColumnRender:React.FC<any> = ({left,height}) => {
           <path
             d={`M ${gridSize} 0 L 0 0 0 ${gridHeight}`}
             fill="none"
-            stroke="gray"
-            strokeWidth="0.5"
+            stroke={styles.dayColBorderColor}
+            strokeWidth="1"
           />
         </pattern>
-        <pattern
-          id="grid"
-          width={gridSize * 5}
-          height={gridHeight * 5}
-          patternUnits="userSpaceOnUse"
-        >
-          <rect
-            width={gridSize * 5}
-            height={gridHeight * 5}
-            fill="url(#smallGrid)"
-          />
-        </pattern>
+       
       </defs>
       <rect
         width={gridSize}
         height={height}
-        fill="url(#grid)"
+        fill="url(#holidayCol)"
       />
     </svg>
   </div>

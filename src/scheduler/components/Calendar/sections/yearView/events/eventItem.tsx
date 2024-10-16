@@ -1,4 +1,6 @@
-import React from "react";
+import React, { useEffect, useRef, useState } from "react";
+import { dateFormat, styles } from "../../../../../helpers/constants";
+import dayjs, { Dayjs } from "dayjs";
 
 const EventItem: React.FC<any> = ({
   gridSize,
@@ -8,23 +10,118 @@ const EventItem: React.FC<any> = ({
   groupIndex,
   background,
   data = [],
+  //req
+  onResize,
+  start,
 }) => {
-  console.log("data", data);
+  const resizeRef = useRef<HTMLDivElement>(null);
+  const [resizabe, setResizable] = useState<boolean>(false);
+  const [position, setPosition] = useState({
+    top: groupIndex * gridHeight + 5,
+    left: ind * gridSize,
+  });
+  const [calculatedWidth, setCalculatedWidth] = useState<number>(
+    styles.dayColWidth
+  );
+  const [dragWidth, setDragWidth] = useState<number>(styles.dayColWidth);
+  const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
+  const handleDragStart = (e: any) => {
+    // e.dataTransfer.setData("text/plain", activeDate);
+    e.dataTransfer.effectAllowed = "move";
+    const { clientX, clientY } = e;
+    setInitialPosition({
+      x: clientX - position.left,
+      y: clientY - position.top,
+    });
 
+    // setDragItem({
+    //   selection: activeDate,
+    //   row: data,
+    //   length: calculatedWidth / styles.dayColWidth - 1,
+    // });
+  };
+  const handleDrag = (e: any) => {
+    if (e.clientX === 0 && e.clientY === 0) return; // Prevents issues when dragging outside
+    const newLeft = e.clientX - initialPosition.x;
+    const newTop = e.clientY - initialPosition.y;
+    setPosition((c) => ({ ...c, left: newLeft ,top:newTop}));
+  };
+
+  const handleDragEnd = () => {
+    // Handle any cleanup or final actions if necessary
+  };
+  useEffect(() => {
+    setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
+  }, [ind, groupIndex, gridHeight, gridSize]);
+  useEffect(() => {
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setDragWidth(entry.contentRect.width);
+      }
+    });
+
+    if (resizeRef.current) {
+      resizeObserver.observe(resizeRef.current);
+    }
+
+    // Cleanup observer on component unmount
+    return () => {
+      resizeObserver.disconnect();
+    };
+  }, []);
+  const onMouseEnter = () => {
+    setResizable(true);
+  };
+
+  const onMouseLeave = () => {
+    setResizable(false);
+    onResizeEnd();
+  };
+  const onResizeEnd = () => {
+    const newWidth = dragWidth;
+
+    if (dragWidth !== calculatedWidth) {
+      const remainingWidtthToFill = newWidth % styles.dayColWidth;
+      let eventWidth;
+      if (remainingWidtthToFill !== 0) {
+        eventWidth = dragWidth - remainingWidtthToFill + styles.dayColWidth;
+      } else {
+        eventWidth = newWidth;
+      }
+
+      const differenceFromStartDate = eventWidth / styles.dayColWidth;
+
+      const actualDifference = differenceFromStartDate - 1;
+
+      const endDate: Dayjs = dayjs(start, dateFormat);
+
+      const draggedEndDate = endDate.add(actualDifference, "day");
+
+      onResize({ id: data.id, newDate: draggedEndDate });
+    }
+  };
   return (
     <div
       className="absolute z-20  "
+      draggable
+      onDragStart={handleDragStart}
+      onDrag={handleDrag}
+      onDragEnd={handleDragEnd}
       style={{
         width: gridSize * eventLength,
         height: gridHeight - 10,
-        left: ind * gridSize,
+        left: position.left,
         borderRadius: 6,
 
-        top: groupIndex * gridHeight + 5,
+        top: position.top,
       }}
     >
       <div
-        className="px-2 z-20 flex items-center justify-start relative resize-x overflow-hidden ml-[1px]"
+        className={`px-2 z-20 flex items-center justify-start relative  overflow-hidden ml-[1px] ${
+          resizabe ? "resize-x z-40" : "z-20"
+        } `}
+        onMouseEnter={onMouseEnter}
+        onTouchStart={onMouseEnter}
         style={{
           width: gridSize * eventLength - 2,
           height: gridHeight - 10,

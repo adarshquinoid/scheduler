@@ -35,7 +35,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
 
     useImperativeHandle(ref, () => ({
       loadNext: () => {
-return;
+// return;
         setLoadedYears((currentYears) => {
           const newYears = [...currentYears];
           newYears.push(newYears[newYears.length - 1] + 1);
@@ -43,7 +43,7 @@ return;
         });
       },
       loadPrevious: () => {
-   return;
+  //  return;
         setLoadedYears((currentYears) => {
           const newYears = [...currentYears];
           newYears.unshift(newYears[0] - 1);
@@ -62,7 +62,7 @@ return;
             datesByYear={datesByYear}
             ref={monthYearRendererRef}
           />
-          <DateRenderer datesByYear={datesByYear} ref={dateRendererRef} />
+          <DateRenderer datesByYear={datesByYear} ref={dateRendererRef} flattenedDates={flattenedDates}/>
         
            <DateYearBody
             flattenedDates={flattenedDates}

@@ -17,7 +17,7 @@ export const styles = {
   dayColWidth: 40,
   dayColHeight:52,
   dayColHolidayBG:"#F5F3F3",
-  dayColHeaderBG:"#F5F3F3",
+  dayColHeaderBG:"#FFF",
   dayColHeaderColor:"#1E1F21",
   dayColHeaderFontSize:"12px",
   dayColHeaderBorderColor:"#EDEAE9",
