@@ -1,36 +1,71 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+root{
+  font-family: "Noto Sans";
+}
 .scheduler {
   display: flex;
   width: 100%;
   position: relative;
-  border: 1px solid #e5e7eb;
+  // border: 1px solid #e5e7eb;
 
   // -ms-overflow-style: none; /* IE and Edge */
   // scrollbar-width: none; /* Firefox */
 
   .tree-container {
-    border-right: 1px solid #e5e7eb;
-    border-bottom: 1px solid #e5e7eb;
+    // border-right: 1px solid #e5e7eb;
+    // border-bottom: 1px solid #e5e7eb;
     z-index: 50;
     position: sticky;
     left: 0;
 
     .tree {
       background: white;
+
       .tree-header {
         background: white;
-        height: 56px;
-        border-top: 1px solid #e5e7eb;
-        border-bottom: 1px solid #e5e7eb;
+        height: 57px;
+        // border-top: 1px solid #e5e7eb;
+        // border-bottom: 1px solid #e5e7eb;
       }
 
       .tree-items-container {
         width: max-content;
         min-width: 300px;
         background: white;
+      }
+
+      .tree-root {
+
+        color: #003C71;
+
+        font-size: 16px;
+        font-style: normal;
+        font-weight: 500;
+        line-height: 16px;
+        /* 100% */
+
+        .first-level {
+          color: #1E1F21;
+
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 500;
+          line-height: 16px;
+          /* 114.286% */
+        }
+
+        .inner-level {
+          color: #1E1F21;
+
+          font-size: 14px;
+          font-style: normal;
+          font-weight: 400;
+          line-height: 16px;
+          /* 114.286% */
+        }
+
       }
     }
   }
@@ -39,5 +74,40 @@
     display: flex;
     width: 100%;
     overflow: auto;
+  }
+
+  
+}
+
+.indicator{
+  position: relative;
+  border-top-right-radius: 4px;
+  border-top-left-radius: 4px;
+  background: #cd95ea;
+  &::after{
+    width: 10px;
+    border-top-right-radius: 4px;
+    position: absolute;
+    right: 0;
+    background: transparent;
+    content: " ";
+    height: 20px;
+    display: block;
+    border-right: 10px solid #cd95ea;
+    border-left: 0px solid transparent;
+    border-bottom: 20px solid transparent;
+  }
+  &::before{
+    width: 10px;
+    position: absolute;
+    left: 0;
+    background: transparent;
+    content: " ";
+    height: 20px;
+    border-top-left-radius: 4px;
+    display: block;
+    border-left: 10px solid #cd95ea;
+    border-right: 0px solid transparent;
+    border-bottom: 20px solid transparent;
   }
 }

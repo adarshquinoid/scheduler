@@ -1,21 +1,19 @@
 import { forwardRef, useImperativeHandle, useRef, useState } from "react";
 
 import {
-  CalendarColumnType,
   CalendarProps,
   CalendarRef,
   DateRendererRef,
   DateYearBodyRef,
-  MonthYearRendererRef,
+  MonthYearRendererRef
 } from "../../types/common";
 
+import {
+  generateDatesByYears
+} from "../../helpers/utilities";
 import DateRenderer from "./sections/yearView/DateRenderer";
 import DateYearBody from "./sections/yearView/DateYearBody";
 import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
-import {
-  generateDatesByMonth,
-  generateDatesByYears,
-} from "../../helpers/utilities";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
   ({ groups = [], data = [], onResize, updateKey, onDragEnd }, ref) => {

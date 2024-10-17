@@ -127,7 +127,7 @@ function App() {
       start: "18-10-2024",
       end: "28-10-2024",
       role: 1013,
-      id: 2,
+      id: 3,
       background: "#4F5DA7",
       labels: [
         {
@@ -153,8 +153,468 @@ function App() {
         },
       ],
     },
-    // { start: "21-10-2024", end: "25-10-2024", role: 1011 },
-    // { start: "21-10-2024", end: "26-10-2024", role: 1011 },
+    {
+      start: "01-10-2024",
+      end: "20-10-2024",
+      role: 1014,
+      id: 4,
+      background: "#008E9D",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "21-10-2024",
+      end: "28-10-2024",
+      role: 1014,
+      id: 5,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "18-10-2024",
+      end: "28-10-2024",
+      role: 1014,
+      id: 6,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+    
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "01-10-2024",
+      end: "20-10-2024",
+      role: 1015,
+      id: 7,
+      background: "#008E9D",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "21-10-2024",
+      end: "28-10-2024",
+      role: 1015,
+      id: 8,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "18-10-2024",
+      end: "28-10-2024",
+      role: 1015,
+      id: 9,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+    
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "01-10-2024",
+      end: "20-10-2024",
+      role: 1018,
+      id: 10,
+      background: "#008E9D",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "21-10-2024",
+      end: "28-10-2024",
+      role: 1019,
+      id: 11,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "18-10-2024",
+      end: "28-10-2024",
+      role: 1019,
+      id: 12,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+    
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "01-10-2024",
+      end: "20-10-2024",
+      role: 1020,
+      id: 13,
+      background: "#008E9D",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "21-10-2024",
+      end: "28-10-2024",
+      role: 1021,
+      id: 14,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "18-10-2024",
+      end: "28-10-2024",
+      role: 1021,
+      id: 15,
+      background: "#4F5DA7",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+    
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+    {
+      start: "01-10-2024",
+      end: "20-10-2024",
+      role: 1021,
+      id: 16,
+      background: "#008E9D",
+      labels: [
+        {
+          name: "Adarsh A",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG",
+        },
+        {
+          name: "Sahal",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG",
+        },
+        {
+          name: "Reshap",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG",
+        },
+        {
+          name: "Syamnath",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG",
+        },
+        {
+          name: "Vignesh",
+          image:
+            "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG",
+        },
+      ],
+    },
+
+    {
+      start: "01-10-2024",
+      end: "31-10-2024",
+      role: 1,
+      id: 17,
+      background: "#008E9D",
+      labels: [],
+      type:"tenent"
+    },
+  
   ];
 
   const [employeeDatas, setEmployeeDatas] = useState(
@@ -196,6 +656,11 @@ function App() {
   return (
     <>
       <div className="bg-green-300  p-5 ">Scheduler Component</div>
+     
+     <div className="bg-red">
+     <div className="h-[11px]   indicator rounded-t-[6px]" style={{width:900}}/>
+     </div>
+     
       <div>
         <Scheduler
           groupData={employeeDatas}

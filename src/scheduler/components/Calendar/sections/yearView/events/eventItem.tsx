@@ -132,7 +132,7 @@ const EventItem: React.FC<any> = ({
           resizabe ? "resize-x z-40" : "z-20"
         } `}
         onMouseEnter={onMouseEnter}
-        onTouchStart={onMouseEnter}
+        onMouseLeave={onMouseLeave}
         style={{
           width: gridSize * eventLength - 2,
           height: gridHeight - 10,

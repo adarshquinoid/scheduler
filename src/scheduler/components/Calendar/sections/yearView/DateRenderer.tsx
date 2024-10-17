@@ -41,7 +41,7 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
             >
               <path
                 d={`M ${gridSize} 0 L 0 0 0 ${24}`}
-                fill="none"
+                fill={styles.dayColHeaderBG}
                 stroke={styles.dayColBorderColor}
                 strokeWidth="1"
               />
@@ -65,7 +65,7 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
                       width: styles.dayColWidth,
                       background: day.isCurrentDay
                         ? styles.currentDayIndicatorBGColor
-                        : styles.dayColHeaderBG,
+                        : "transparent",
                       color: day.isCurrentDay
                         ? styles.currentDayIndicatorColor
                         : styles.dayColHeaderColor,
@@ -76,13 +76,13 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
                   >
                     {day.isCurrentDay ? (
                       <div
-                        className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal"
+                        className="h-6 w-10 flex items-center justify-center text-[12px]  font-normal"
                         ref={currentDayRef}
                       >
                         {dayjs(day.date).format("DD")}
                       </div>
                     ) : (
-                      <div className="h-6 w-10 flex items-center justify-center text-[12px] leading-[14px] font-normal">
+                      <div className="h-6 w-10 flex items-center justify-center text-[12px] font-normal">
                         {dayjs(day.date).format("DD")}
                       </div>
                     )}

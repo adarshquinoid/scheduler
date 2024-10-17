@@ -15,7 +15,7 @@ export const Months = {
 export const dateFormat="DD-MM-YYYY"
 export const styles = {
   dayColWidth: 40,
-  dayColHeight:52,
+  dayColHeight:50,
   dayColHolidayBG:"#F5F3F3",
   dayColHeaderBG:"#FFF",
   dayColHeaderColor:"#1E1F21",
@@ -24,7 +24,7 @@ export const styles = {
   currentDayColHeaderBorderColor:"#ff1010",
   dayColColBg:"#F9F8F8",
   dayColBorderColor:"#EDEAE9",
-  eventItemHeight:42,
+  eventItemHeight:40,
   eventItemContainerPadding:5,
   eventItemContainerGap:5,
   

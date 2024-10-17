@@ -8,7 +8,7 @@ import React, {
 import { TreeProps, TreeRef } from "../../types/common";
 import { Group } from "../../types/datastructure";
 import { styles } from "../../helpers/constants";
-import { generateColumnHeight } from "../../helpers/utilities";
+// import { generateColumnHeight } from "../../helpers/utilities";
 
 function ChildRenderer({
   groups,
@@ -16,7 +16,7 @@ function ChildRenderer({
   node,
   renderFunction,
   handleExpand,
-  data
+  renderColumns,
 }: any) {
   let Level = level + 1;
   if (groups.length !== null) {
@@ -32,11 +32,14 @@ function ChildRenderer({
                   style={{
                     paddingLeft: Level * 20,
                     minHeight: styles.dayColHeight,
-                    height: generateColumnHeight(data,item),
+                    height: styles.dayColHeight,
                   }}
-                  className="w-full  min-w-[300px] text-left cursor-pointer  border-t border-b border-[#EDEAE9]"
+                  className={`w-full  min-w-[300px] text-left cursor-pointer  relative flex items-center ${
+                    level === 1 ? "first-level" : "inner-level"
+                  }`}
                 >
-                  {item.name}
+                  <div>{item.name}</div>
+                  {renderColumns()}
                 </div>
                 <div>{renderFunction(item, Level)}</div>
               </>
@@ -50,7 +53,7 @@ function ChildRenderer({
   }
 }
 const TreeView = forwardRef<TreeRef, TreeProps>(
-  ({ groups, handleExpand, treeHeader,data }, ref) => {
+  ({ groups, handleExpand, treeHeader, data }, ref) => {
     const contentRef = useRef<HTMLDivElement>(null);
     const [contentWidth, setContentWidth] = useState<number>(
       contentRef?.current?.clientWidth || 200
@@ -67,6 +70,7 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
             data={data}
             renderFunction={renderFunction}
             handleExpand={handleExpand}
+            renderColumns={renderColumns}
           />
         );
       }
@@ -80,6 +84,20 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
     useImperativeHandle(ref, () => ({
       onClick: () => {},
     }));
+    const renderColumns = () => {
+      return (
+        <div className="absolute bottom-0 left-0">
+          <svg width={contentWidth} height={1}>
+            <path
+              d={`M ${contentWidth} 0 L 0 0 0 1`}
+              fill="none"
+              stroke={"#EDEAE9"}
+              strokeWidth="1"
+            />
+          </svg>
+        </div>
+      );
+    };
     return (
       <div className="tree" id="tree">
         <div
@@ -99,14 +117,15 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
                     <div
                       style={{
                         minHeight: styles.dayColHeight,
-                        height: generateColumnHeight(data,item)
+                        height: styles.dayColHeight,
                       }}
                       id={`tree-${item.type}-${item.id}`}
                       onClick={() => handleExpand(item)}
-                      className="w-full text-left cursor-pointer  border-t border-b border-[#EDEAE9] pl-5 tree-item flex items-center gap-2"
+                      className="w-full text-left cursor-pointer  pl-5 tree-item flex items-center gap-2 relative tree-root"
                     >
                       {/* <div>{generateIcons(item)}</div> */}
                       <div>{item.name}</div>
+                      {renderColumns()}
                     </div>
 
                     {item.expand && renderFunction(item, 1)}

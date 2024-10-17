@@ -12,6 +12,7 @@ import EventItem from "./events/eventItem";
 import HolidayColumnRender from "./events/holidayColumn";
 import TodayIndicator from "./events/todayIndicator";
 import Columns from "./events/columns";
+import EventGroups from "./events/eventGroups";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
   ({ flattenedDates, groups, data, onResize, onDragEnd }, ref) => {
@@ -58,6 +59,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
     const renderEvents = () => {
       const events: any[] = [];
+      const eventGroups: any[] = [];
       data.forEach((_items: any, _index: number) => {
         const groupIndex = groups.findIndex(
           (grp: any) => grp.id === _items.role
@@ -65,6 +67,18 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
         const eventDates = createDateRange(_items);
         flattenedDates?.forEach((item: any, ind: number) => {
           if (dayjs(item.date).format(dateFormat) === _items.start) {
+            if(_items.type==="tenent"){
+
+              eventGroups.push({
+                gridSize: gridSize,
+                gridHeight: gridHeight,
+                eventLength: eventDates.length,
+                ind: ind,
+                groupIndex: groupIndex,
+  
+                background: _items.background,
+              })
+            }else{
             events.push({
               ..._items,
               gridSize: gridSize,
@@ -77,14 +91,17 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
               data: _items?.labels,
             });
-          }
+          }}
         });
       });
-      console.log(events);
+      console.log(events,eventGroups);
       return (
         <>
           {events?.map((item: any) => (
             <EventItem {...item} />
+          ))}
+          {eventGroups?.map((item: any) => (
+            <EventGroups {...item} />
           ))}
         </>
       );
