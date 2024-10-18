@@ -8,14 +8,13 @@ import {
   SchedulerRef,
   TreeRef,
 } from "./types/common";
-import { SchedulerProvider } from "./providers/SchedulerProvider";
+import { SchedulerProvider, useScheduler } from "./providers/SchedulerProvider";
 
 const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
   (
     {
-      groupData = [],
+
       handleExpand,
-      data = [],
       treeHeader = "",
       onResize,
       expandIcon,
@@ -23,10 +22,11 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
       itemStartIcon,
       itemEndIcon,
       onDragEnd,
-      updateKey,
+
     },
     ref
   ) => {
+    const {data,groups:groupData}=useScheduler()
     const treeContainerRef = useRef<HTMLDivElement>(null);
     const treeRef = useRef<TreeRef>(null);
     const calendarRef = useRef<CalendarRef>(null);
@@ -65,7 +65,7 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
     const scrollIntoView = () => {};
     return (
       <>
-        <TopBar navigateToday={scrollIntoView} />
+        {/* <TopBar navigateToday={scrollIntoView} /> */}
         <div className="scheduler" id="scheduler" ref={schedulerRef}>
           <div
             className="tree-container"
@@ -73,12 +73,12 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             ref={treeContainerRef}
           >
             <TreeView
-              groups={groupData}
+
               treeHeader={treeHeader}
               handleExpand={handleExpand}
               expandIcon={expandIcon}
               collapseIcon={collapseIcon}
-              data={data}
+
               itemStartIcon={itemStartIcon}
               itemEndIcon={itemEndIcon}
               ref={treeRef}
@@ -91,10 +91,10 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
             onScroll={handleScroll}
           >
             <Calandar
-              groups={groupData}
+     
               ref={calendarRef}
-              data={data}
-              updateKey={updateKey}
+
+
               onResize={onResize}
               onDragEnd={onDragEnd}
             />

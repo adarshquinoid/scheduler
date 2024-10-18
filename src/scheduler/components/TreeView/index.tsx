@@ -8,6 +8,7 @@ import React, {
 import { TreeProps, TreeRef } from "../../types/common";
 import { Group } from "../../types/datastructure";
 import { styles } from "../../helpers/constants";
+import { useScheduler } from "../../providers/SchedulerProvider";
 // import { generateColumnHeight } from "../../helpers/utilities";
 
 function ChildRenderer({
@@ -53,7 +54,8 @@ function ChildRenderer({
   }
 }
 const TreeView = forwardRef<TreeRef, TreeProps>(
-  ({ groups, handleExpand, treeHeader, data }, ref) => {
+  ({  handleExpand, treeHeader }, ref) => {
+    const {groups,data}=useScheduler()
     const contentRef = useRef<HTMLDivElement>(null);
     const [contentWidth, setContentWidth] = useState<number>(
       contentRef?.current?.clientWidth || 200

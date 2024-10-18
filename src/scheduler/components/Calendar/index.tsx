@@ -11,12 +11,14 @@ import {
 import {
   generateDatesByYears
 } from "../../helpers/utilities";
+import { useScheduler } from "../../providers/SchedulerProvider";
 import DateRenderer from "./sections/yearView/DateRenderer";
 import DateYearBody from "./sections/yearView/DateYearBody";
 import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
-  ({ groups = [], data = [], onResize, updateKey, onDragEnd }, ref) => {
+  ({  onResize, onDragEnd }, ref) => {
+    const {data,groups}=useScheduler()
     const monthYearRendererRef = useRef<MonthYearRendererRef>(null);
     const dateRendererRef = useRef<DateRendererRef>(null);
     const dateYearBodyRef = useRef<DateYearBodyRef>(null);
@@ -52,7 +54,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
     const flattenedDates: any = Object.values(datesByYear).flatMap(
       (months: any) => Object.values(months).flat()
     );
-    console.log(flattenedDates);
+
     return (
       <div className="flex flex-col over">
         <div>
@@ -64,9 +66,6 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
         
            <DateYearBody
             flattenedDates={flattenedDates}
-            groups={groups}
-            key={updateKey}
-            data={data}
             onDragEnd={onDragEnd}
             onResize={onResize}
             ref={dateYearBodyRef}

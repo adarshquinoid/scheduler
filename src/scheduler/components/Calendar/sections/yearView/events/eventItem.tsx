@@ -1,6 +1,7 @@
 import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { dateFormat, styles } from "../../../../../helpers/constants";
+import { generateNewDateByDifference } from "../../../../../helpers/utilities";
 
 const EventItem: React.FC<any> = ({
   gridSize,
@@ -12,7 +13,9 @@ const EventItem: React.FC<any> = ({
   data = [],
   //req
   onResize,
-  start,
+  onDragEnd,
+  row
+  
 }) => {
   const resizeRef = useRef<HTMLDivElement>(null);
   const [resizabe, setResizable] = useState<boolean>(false);
@@ -26,11 +29,9 @@ const EventItem: React.FC<any> = ({
   const [dragWidth, setDragWidth] = useState<number>(styles.dayColWidth);
   const [initialPosition, setInitialPosition] = useState({ x: 0, y: 0 });
   const handleDragStart = (e: any) => {
-  
     // e.dataTransfer.setData("text/plain", activeDate);
     e.dataTransfer.effectAllowed = "move";
     const { clientX, clientY } = e;
-    console.log( "init",clientX - position.left)
     setInitialPosition({
       x: clientX - position.left,
       y: clientY - position.top,
@@ -47,19 +48,50 @@ const EventItem: React.FC<any> = ({
     if (e.clientX === 0 && e.clientY === 0) return; // Prevents issues when dragging outside
     const newLeft = e.clientX - initialPosition.x;
     // const newTop = e.clientY - initialPosition.y;
-    setPosition((c) => ({ ...c, left: newLeft ,
+    setPosition((c) => ({
+      ...c,
+      left: newLeft,
       // top:newTop
     }));
-
   };
 
-  const handleDragEnd = (e:any) => {
+  const handleDragEnd = (e: any) => {
+    const initPostition = ind * gridSize;
     if (e.clientX === 0 && e.clientY === 0) return; // Prevents issues when dragging outside
     const newLeft = e.clientX - initialPosition.x;
     // const newTop = e.clientY - initialPosition.y;
-    setPosition((c) => ({ ...c, left: newLeft ,
+    setPosition((c) => ({
+      ...c,
+      left: newLeft,
       // top:newTop
     }));
+
+    const actualDifference = newLeft - initPostition;
+    if (actualDifference !== 0) {
+      const action = actualDifference < 0 ? "subtract" : "add";
+      const difference =
+        actualDifference > 0 ? actualDifference : actualDifference * -1;
+
+      const mod = difference % gridSize;
+
+      const calculatedDifference = difference + (gridSize - mod);
+     
+
+      // console.log(difference,difference%gridSize,mod)
+      // const finalDifference=remainingDifference+()
+
+      const newStartDate = generateNewDateByDifference(
+        row?.start,
+        action,
+        actualDifference>0?(calculatedDifference / gridSize)-1:(calculatedDifference / gridSize)
+      );
+      const newEndDate = dayjs(newStartDate).add(eventLength-1,"day")
+
+      
+      onDragEnd?.({start:newStartDate,end:newEndDate,row});
+    }
+
+   
   };
   useEffect(() => {
     setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
@@ -104,7 +136,7 @@ const EventItem: React.FC<any> = ({
 
       const actualDifference = differenceFromStartDate - 1;
 
-      const endDate: Dayjs = dayjs(start, dateFormat);
+      const endDate: Dayjs = dayjs(row?.start, dateFormat);
 
       const draggedEndDate = endDate.add(actualDifference, "day");
 

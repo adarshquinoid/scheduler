@@ -9,7 +9,6 @@ const EventGroups: React.FC<any> = ({ gridSize,ind, eventLength,groupIndex, grid
       });
       useEffect(() => {
         setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
-        console.log(groupIndex,gridHeight)
       }, [ind, groupIndex, gridHeight, gridSize]);
     return (
     <div  style={{

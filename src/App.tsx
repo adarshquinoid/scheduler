@@ -1,67 +1,69 @@
 import dayjs from "dayjs";
-import { useState } from "react";
+import { useEffect } from "react";
 import "./App.css";
 import dummy from "./dummy.json";
 import Scheduler from "./scheduler";
 import { dateFormat } from "./scheduler/helpers/constants";
+import { useScheduler } from "./scheduler/providers/SchedulerProvider";
 import { calandar, Group } from "./scheduler/types/datastructure";
 function App() {
+  const { handleSetEventData, handleSetGroupData, groups, data } =
+    useScheduler();
 
-
-  const [employeeDatas, setEmployeeDatas] = useState(
-    dummy?.groups.map((item: Group) => ({
-      ...item,
-      hasChild: dummy?.groups.some((dat: Group) => item.id === dat.parent),
-    }))
-  );
-  const [data, setData] = useState(dummy?.data);
-  const [updateKey, setUpdateKey] = useState(0);
   const handleExpand = (node: any) => {
-    setEmployeeDatas((c) =>
-      c.map((item: any) =>
+    handleSetGroupData(
+      groups.map((item: any) =>
         item.id === node.id ? { ...item, expand: !item.expand } : item
       )
     );
   };
   const onDragEnd = (dragData: any) => {
-    setData((c) =>
-      c.map((item) =>
+    handleSetEventData(
+      data.map((item: any) =>
         item.id === dragData?.row.id
-          ? { ...item, start: dragData?.start, end: dragData.end }
+          ? {
+              ...item,
+              start: dayjs(dragData?.start).format(dateFormat),
+              end: dayjs(dragData.end).format(dateFormat),
+            }
           : item
       )
     );
-    setUpdateKey((k) => k + 1);
   };
 
   const onResize = (end: calandar) => {
-    setData((c) =>
-      c.map((item) =>
+    handleSetEventData(
+      data.map((item: any) =>
         item.id === end.id
           ? { ...item, end: dayjs(end.newDate).format(dateFormat) }
           : item
       )
     );
-    setUpdateKey((k) => k + 1);
   };
+
+  useEffect(() => {
+    handleSetGroupData(
+      dummy?.groups.map((item: Group) => ({
+        ...item,
+        hasChild: dummy?.groups.some((dat: Group) => item.id === dat.parent),
+      }))
+    );
+  }, []);
+  useEffect(() => {
+    handleSetEventData(dummy?.data);
+  }, []);
+  console.log(data);
   return (
     <>
       <div className="bg-green-300  p-5 ">Scheduler Component</div>
-     
-     <div className="bg-red">
-     <div className="h-[11px]   indicator rounded-t-[6px]" style={{width:900}}/>
-     </div>
-     
-      <div>
+
+      <div className="border border-red-300">
         <Scheduler
-          groupData={employeeDatas}
-          data={data}
           handleExpand={handleExpand}
           expandIcon={<div>+</div>}
           collapseIcon={<div>+</div>}
           itemStartIcon={<div>:</div>}
           itemEndIcon={<div>:</div>}
-          updateKey={updateKey}
           onDragEnd={onDragEnd}
           onResize={onResize}
         />

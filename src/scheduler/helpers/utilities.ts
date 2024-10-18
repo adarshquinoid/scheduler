@@ -28,7 +28,19 @@ export function createDateRange(item: calandar): string[] {
 
   return dates;
 }
-
+export const generateNewDateByDifference = (
+  date: string,
+  action: "add" | "subtract",
+  days: number
+) => {
+  console.log(date,action,days)
+  let currentDate: Dayjs = dayjs(date, dateFormat);
+  if (action === "add") {
+    return currentDate.add(days, "day");
+  } else {
+    return currentDate.subtract(days, "day");
+  }
+};
 export const generateActiveColumnDates = (
   dateRange: String[],
   activeDate: String
@@ -148,31 +160,30 @@ export const generateDatesByYears = (yearArray: number[]) => {
 };
 
 export const calculateDateDifference = (dateRanges: any[]): any => {
-  if(dateRanges.length>0){
-  // Flatten the start and end dates into a single array
-  const allDates = dateRanges.flatMap((range) => [range.start, range.end]);
+  if (dateRanges.length > 0) {
+    // Flatten the start and end dates into a single array
+    const allDates = dateRanges.flatMap((range) => [range.start, range.end]);
 
-  // Parse dates using Day.js
-  const parsedDates = allDates.map((date) => dayjs(date, "DD-MM-YYYY"));
+    // Parse dates using Day.js
+    const parsedDates = allDates.map((date) => dayjs(date, "DD-MM-YYYY"));
 
-  // Find min and max dates
-  const minDate = parsedDates.reduce(
-    (min, date) => (date.isBefore(min) ? date : min),
-    parsedDates[0]
-  );
-  const maxDate = parsedDates.reduce(
-    (max, date) => (date.isAfter(max) ? date : max),
-    parsedDates[0]
-  );
+    // Find min and max dates
+    const minDate = parsedDates.reduce(
+      (min, date) => (date.isBefore(min) ? date : min),
+      parsedDates[0]
+    );
+    const maxDate = parsedDates.reduce(
+      (max, date) => (date.isAfter(max) ? date : max),
+      parsedDates[0]
+    );
 
-  // Calculate the difference in days
-  const differenceInDays = maxDate.diff(minDate, "day") + 1;
+    // Calculate the difference in days
+    const differenceInDays = maxDate.diff(minDate, "day") + 1;
 
-  return {
-    differenceInDays,
-    start: dayjs(minDate).format(dateFormat),
-    end: dayjs(maxDate).format(dateFormat),
-  };
-}
-
+    return {
+      differenceInDays,
+      start: dayjs(minDate).format(dateFormat),
+      end: dayjs(maxDate).format(dateFormat),
+    };
+  }
 };
