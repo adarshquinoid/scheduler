@@ -56,11 +56,11 @@ export const eventItemData = (
       dayjs(day.date).format(dateFormat)
     );
     if (dateData.length > 0) {
-      finalData.push({dates:dateData,...item});
+      finalData.push({ dates: dateData, ...item });
     }
   });
 
-  return finalData||[];
+  return finalData || [];
 };
 export const calculateRepeatedRanges = (data: calandar[]): number => {
   const rangeCount: Record<string, number> = {};
@@ -102,7 +102,7 @@ export const generateColumnHeight = (data: calandar[], group: Group) => {
   //     styles.eventItemContainerPadding * 2
   //   );
   // } else {
-    return styles.eventItemHeight + styles.eventItemContainerPadding * 2;
+  return styles.eventItemHeight + styles.eventItemContainerPadding * 2;
   // }
 };
 
@@ -122,9 +122,7 @@ export const generateDatesByMonth = (
     for (let day = 1; day <= daysInMonth; day++) {
       const date = new Date(activeYear, month, day);
       const isCurrentDay =
-        activeYear === todayYear &&
-        month === todayMonth &&
-        day === todayDate;
+        activeYear === todayYear && month === todayMonth && day === todayDate;
       const isHoliday = date.getDay() === 0 || date.getDay() === 6;
       dates.push({
         date,
@@ -139,7 +137,7 @@ export const generateDatesByMonth = (
   return datesByMonth;
 };
 
-export  const generateDatesByYears = (yearArray:number[]) => {
+export const generateDatesByYears = (yearArray: number[]) => {
   const datesByYearData: any = {};
 
   yearArray.forEach((year) => {
@@ -147,4 +145,34 @@ export  const generateDatesByYears = (yearArray:number[]) => {
   });
 
   return datesByYearData;
+};
+
+export const calculateDateDifference = (dateRanges: any[]): any => {
+  if(dateRanges.length>0){
+  // Flatten the start and end dates into a single array
+  const allDates = dateRanges.flatMap((range) => [range.start, range.end]);
+
+  // Parse dates using Day.js
+  const parsedDates = allDates.map((date) => dayjs(date, "DD-MM-YYYY"));
+
+  // Find min and max dates
+  const minDate = parsedDates.reduce(
+    (min, date) => (date.isBefore(min) ? date : min),
+    parsedDates[0]
+  );
+  const maxDate = parsedDates.reduce(
+    (max, date) => (date.isAfter(max) ? date : max),
+    parsedDates[0]
+  );
+
+  // Calculate the difference in days
+  const differenceInDays = maxDate.diff(minDate, "day") + 1;
+
+  return {
+    differenceInDays,
+    start: dayjs(minDate).format(dateFormat),
+    end: dayjs(maxDate).format(dateFormat),
+  };
+}
+
 };

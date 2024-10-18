@@ -1,32 +1,33 @@
-import { forwardRef, useImperativeHandle, useRef } from "react";
+import dayjs from "dayjs";
+import { forwardRef, useImperativeHandle } from "react";
+import { dateFormat, styles } from "../../../../helpers/constants";
+import {
+  calculateDateDifference,
+  createDateRange,
+} from "../../../../helpers/utilities";
 import {
   DateYearBodyProps,
-  DateYearBodyRef,
-  DateYearBodyRowRef,
+  DateYearBodyRef
 } from "../../../../types/common";
-import { Group } from "../../../../types/datastructure";
-import { dateFormat, styles } from "../../../../helpers/constants";
-import { createDateRange } from "../../../../helpers/utilities";
-import dayjs from "dayjs";
+import Columns from "./events/columns";
+import EventGroups from "./events/eventGroups";
 import EventItem from "./events/eventItem";
 import HolidayColumnRender from "./events/holidayColumn";
 import TodayIndicator from "./events/todayIndicator";
-import Columns from "./events/columns";
-import EventGroups from "./events/eventGroups";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
   ({ flattenedDates, groups, data, onResize, onDragEnd }, ref) => {
-    const dateYearBodyRowRef = useRef<DateYearBodyRowRef>();
-    const checkForRows = (grp: Group) => {
-      const isTopLevel = grp.parent === null;
-      const isTopLevelExpanded = groups.find(
-        (item: any) => item.parent === null
-      )?.expand;
-      const isParentExpanded = groups.find(
-        (item: any) => item.id === grp.parent
-      )?.expand;
-      return isTopLevel || (isParentExpanded && isTopLevelExpanded);
-    };
+    // const dateYearBodyRowRef = useRef<DateYearBodyRowRef>();
+    // const checkForRows = (grp: Group) => {
+    //   const isTopLevel = grp.parent === null;
+    //   const isTopLevelExpanded = groups.find(
+    //     (item: any) => item.parent === null
+    //   )?.expand;
+    //   const isParentExpanded = groups.find(
+    //     (item: any) => item.id === grp.parent
+    //   )?.expand;
+    //   return isTopLevel || (isParentExpanded && isTopLevelExpanded);
+    // };
 
     useImperativeHandle(ref, () => ({
       navigateToday: () => {},
@@ -59,7 +60,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
     const renderEvents = () => {
       const events: any[] = [];
-      const eventGroups: any[] = [];
+
       data.forEach((_items: any, _index: number) => {
         const groupIndex = groups.findIndex(
           (grp: any) => grp.id === _items.role
@@ -67,18 +68,6 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
         const eventDates = createDateRange(_items);
         flattenedDates?.forEach((item: any, ind: number) => {
           if (dayjs(item.date).format(dateFormat) === _items.start) {
-            if(_items.type==="tenent"){
-
-              eventGroups.push({
-                gridSize: gridSize,
-                gridHeight: gridHeight,
-                eventLength: eventDates.length,
-                ind: ind,
-                groupIndex: groupIndex,
-  
-                background: _items.background,
-              })
-            }else{
             events.push({
               ..._items,
               gridSize: gridSize,
@@ -91,16 +80,116 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
               data: _items?.labels,
             });
-          }}
+          }
         });
       });
-      console.log(events,eventGroups);
+
       return (
         <>
           {events?.map((item: any) => (
             <EventItem {...item} />
           ))}
-          {eventGroups?.map((item: any) => (
+        </>
+      );
+    };
+
+    const renderVesselGroups = () => {
+      const vesselEvents: any[] = [];
+  
+      const vessels: any[] = groups.filter(
+        (item: any) => item.type === "vessel"
+      );
+
+
+      const vesselEventGroup:any = [];
+
+
+      vessels.forEach((vessel: any) => {
+        let vesselData = data.filter((dat: any) => vessel.id === dat.vesselId);
+        console.log(vesselData)
+        const difference =
+         calculateDateDifference(vesselData);
+
+        vesselEventGroup.push({...vessel,...difference})
+      });
+console.log(vesselEventGroup)
+      vesselEventGroup.forEach((_items: any, _index: number) => {
+          const groupIndex = groups.findIndex(
+            (grp: any) => grp.id === _items.id
+          );
+
+          flattenedDates?.forEach((item: any, ind: number) => {
+            if (dayjs(item.date).format(dateFormat) === _items.start) {
+              vesselEvents.push({
+                ..._items,
+                gridSize: gridSize,
+                gridHeight: gridHeight,
+                eventLength: _items.differenceInDays || 0,
+                ind: ind,
+                groupIndex: groupIndex,
+
+                background: _items.background,
+
+                data: _items?.labels,
+              });
+            }
+          })
+        });
+      
+
+      return (
+        <>
+          {vesselEvents?.map((item: any) => (
+            <EventGroups {...item} />
+          ))}
+        </>
+      );
+    };
+    const renderTenentGroups = () => {
+      const tenentEvents: any[] = [];
+      const telenents: any[] = groups.filter(
+        (item: any) => item.type === "tenent"
+      );
+
+
+      const tenentEventGroup:any = [];
+ 
+
+      telenents.forEach((tenent: any) => {
+        let tenentData = data.filter((dat: any) => tenent.id === dat.tenentId);
+        const difference = calculateDateDifference(tenentData);
+
+        tenentEventGroup.push({...tenent,...difference})
+      });
+  
+
+      tenentEventGroup.forEach((_items: any, _index: number) => {
+          const groupIndex = groups.findIndex(
+            (grp: any) => grp.id === _items.id
+          );
+
+          flattenedDates?.forEach((item: any, ind: number) => {
+            if (dayjs(item.date).format(dateFormat) === _items.start) {
+              tenentEvents.push({
+                ..._items,
+                gridSize: gridSize,
+                gridHeight: gridHeight,
+                eventLength: _items.differenceInDays || 0,
+                ind: ind,
+                groupIndex: groupIndex,
+
+                background: _items.background,
+
+                data: _items?.labels,
+              });
+            }
+          })
+        });
+      
+
+      return (
+        <>
+          {tenentEvents?.map((item: any) => (
             <EventGroups {...item} />
           ))}
         </>
@@ -148,6 +237,8 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
           containerHeight={groups.length * styles.dayColHeight}
         />
         {renderEvents()}
+        {renderTenentGroups()}
+        {renderVesselGroups()}
         {renderTodayBlock()}
       </div>
     );

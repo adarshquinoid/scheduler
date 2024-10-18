@@ -33,4 +33,9 @@ export type SchedulerContextType = {
     setMode: (mode: SchedulerModes) => void; 
     dragItem: any; 
     setDragItem: (item: any) => void; 
+    handleSetEventData: (item: any) => void; 
+    handleSetGroupData: (item: any) => void; 
+    data:any,
+    groups:any,
+
   };

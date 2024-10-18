@@ -1,0 +1,610 @@
+{
+    "groups": [
+        {
+            "name": "Bahri",
+            "parent": null,
+            "id": 1,
+            "expand": false,
+            "type": "tenent"
+        },
+        {
+            "name": "Alanood (SAR)",
+            "parent": 1,
+            "id": 101,
+            "expand": false,
+            "type": "vessel"
+        },
+        {
+            "name": "Master",
+            "parent": 101,
+            "id": 1011,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "",
+            "parent": 101,
+            "id": 1013,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Chief Officer",
+            "parent": 101,
+            "id": 1012,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "3rd Officer",
+            "parent": 101,
+            "id": 1014,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Chief Engineer",
+            "parent": 101,
+            "id": 1015,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "3rd Engineer",
+            "parent": 101,
+            "id": 1016,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Electr. Officer / Engineer",
+            "parent": 101,
+            "id": 1017,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Fitter",
+            "parent": 101,
+            "id": 1018,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Motorman",
+            "parent": 101,
+            "id": 1019,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Cook",
+            "parent": 101,
+            "id": 1020,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Messman",
+            "parent": 101,
+            "id": 1021,
+            "expand": false,
+            "type": "role"
+        },
+        {
+            "name": "Amad (SAR)",
+            "parent": 1,
+            "id": 201,
+            "expand": false,
+            "type": "vessel"
+        },
+        {
+            "name": "Master",
+            "parent": 201,
+            "id": 2011,
+            "expand": false,
+            "type": "role"
+        }
+    ],
+    "data": [
+        {
+            "start": "01-10-2024",
+            "end": "20-10-2024",
+            "role": 1011,
+            "id": 1,
+            "background": "#008E9D",
+            "vesselId": 101,
+            "tenentId": 1,
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "21-10-2024",
+            "end": "28-10-2024",
+            "role": 1011,
+            "id": 2,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "18-10-2024",
+            "end": "28-10-2024",
+            "role": 1013,
+            "id": 3,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "01-10-2024",
+            "end": "20-10-2024",
+            "role": 1014,
+            "id": 4,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#008E9D",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "21-10-2024",
+            "end": "28-10-2024",
+            "role": 1014,
+            "id": 5,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "18-10-2024",
+            "end": "28-10-2024",
+            "role": 1014,
+            "id": 6,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "01-10-2024",
+            "end": "20-10-2024",
+            "role": 1015,
+            "id": 7,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#008E9D",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "21-10-2024",
+            "end": "28-10-2024",
+            "role": 1015,
+            "id": 8,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "18-10-2024",
+            "end": "28-10-2024",
+            "role": 1015,
+            "id": 9,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "01-10-2024",
+            "end": "20-10-2024",
+            "role": 1018,
+            "id": 10,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#008E9D",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "21-10-2024",
+            "end": "28-10-2024",
+            "role": 1019,
+            "id": 11,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "18-10-2024",
+            "end": "28-10-2024",
+            "role": 1019,
+            "id": 12,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "01-10-2024",
+            "end": "20-10-2024",
+            "role": 1020,
+            "id": 13,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#008E9D",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }            ]
+        },
+        {
+            "start": "21-10-2024",
+            "end": "28-10-2024",
+            "role": 1021,
+            "vesselId": 101,
+            "tenentId": 1,
+            "id": 14,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "18-10-2024",
+            "end": "28-10-2024",
+            "role": 1021,
+            "id": 15,
+            "vesselId": 101,
+            "tenentId": 1,
+            "background": "#4F5DA7",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        },
+        {
+            "start": "01-10-2024",
+            "end": "20-10-2024",
+            "role": 2011,
+            "id": 16,
+            "vesselId": 201,
+            "tenentId": 1,
+            "background": "#008E9D",
+            "labels": [
+                {
+                    "name": "Adarsh A",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0601_400x400.JPG"
+                },
+                {
+                    "name": "Sahal",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0081_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0243_400x400.JPG"
+                },
+                {
+                    "name": "Reshap",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0277_0_400x400.JPG"
+                },
+                {
+                    "name": "Syamnath",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0244_400x400.JPG"
+                },
+                {
+                    "name": "Vignesh",
+                    "image": "https://place.abh.ai/s3fs-public/placeholder/DSC_0187_400x400.JPG"
+                }
+            ]
+        }
+    ]
+}

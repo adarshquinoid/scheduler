@@ -9,6 +9,7 @@ const EventGroups: React.FC<any> = ({ gridSize,ind, eventLength,groupIndex, grid
       });
       useEffect(() => {
         setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
+        console.log(groupIndex,gridHeight)
       }, [ind, groupIndex, gridHeight, gridSize]);
     return (
     <div  style={{
@@ -16,7 +17,7 @@ const EventGroups: React.FC<any> = ({ gridSize,ind, eventLength,groupIndex, grid
         left: position.left,
         top: position.top,
         height:gridHeight
-      }} className="absolute flex items-center">
+      }} className="absolute flex items-center ml-[1px]">
     <div
       className="h-[11px]   indicator rounded-t-[6px]"
       style={{
