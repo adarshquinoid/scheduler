@@ -33,7 +33,6 @@ export const generateNewDateByDifference = (
   action: "add" | "subtract",
   days: number
 ) => {
-  console.log(date,action,days)
   let currentDate: Dayjs = dayjs(date, dateFormat);
   if (action === "add") {
     return currentDate.add(days, "day");

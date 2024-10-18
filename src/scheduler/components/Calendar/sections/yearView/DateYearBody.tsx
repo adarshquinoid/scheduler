@@ -29,22 +29,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
     const gridHeight = styles.dayColHeight;
     const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
       e.preventDefault();
-      // console.log(dragItem)
-      // if(dragItem){
-      // const startDate: Dayjs = dayjs(target, dateFormat);
-
-      // const draggedEndDate = startDate.add(dragItem.length, "day");
-
-      // if (dragItem?.row?.id) {
-
-      //   onDragEnd({
-      //     row: dragItem?.row,
-      //     start: target,
-      //     end: dayjs(draggedEndDate).format(dateFormat),
-      //   });
-      // }
-      // setDragItem(null);}
-      // Handle your drop logic here, e.g., updating state, sending data to a server, etc.
+     
     };
 
     const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
@@ -100,7 +85,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
 
       vessels.forEach((vessel: any) => {
         let vesselData =  data.filter((dat: any) => vessel.id === dat.vesselId);
-        console.log(vesselData)
+
         const difference =
          calculateDateDifference(vesselData);
 

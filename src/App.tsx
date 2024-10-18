@@ -52,7 +52,7 @@ function App() {
   useEffect(() => {
     handleSetEventData(dummy?.data);
   }, []);
-  console.log(data);
+
   return (
     <>
       <div className="bg-green-300  p-5 ">Scheduler Component</div>

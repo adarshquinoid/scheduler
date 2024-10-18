@@ -75,10 +75,7 @@ const EventItem: React.FC<any> = ({
       const mod = difference % gridSize;
 
       const calculatedDifference = difference + (gridSize - mod);
-     
 
-      // console.log(difference,difference%gridSize,mod)
-      // const finalDifference=remainingDifference+()
 
       const newStartDate = generateNewDateByDifference(
         row?.start,
@@ -96,22 +93,7 @@ const EventItem: React.FC<any> = ({
   useEffect(() => {
     setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
   }, [ind, groupIndex, gridHeight, gridSize]);
-  useEffect(() => {
-    const resizeObserver = new ResizeObserver((entries) => {
-      for (let entry of entries) {
-        setDragWidth(entry.contentRect.width);
-      }
-    });
 
-    if (resizeRef.current) {
-      resizeObserver.observe(resizeRef.current);
-    }
-
-    // Cleanup observer on component unmount
-    return () => {
-      resizeObserver.disconnect();
-    };
-  }, []);
   const onMouseEnter = () => {
     setResizable(true);
   };
@@ -122,8 +104,7 @@ const EventItem: React.FC<any> = ({
   };
   const onResizeEnd = () => {
     const newWidth = dragWidth;
-
-    if (dragWidth !== calculatedWidth) {
+if (dragWidth !== calculatedWidth) {
       const remainingWidtthToFill = newWidth % styles.dayColWidth;
       let eventWidth;
       if (remainingWidtthToFill !== 0) {
@@ -131,7 +112,6 @@ const EventItem: React.FC<any> = ({
       } else {
         eventWidth = newWidth;
       }
-
       const differenceFromStartDate = eventWidth / styles.dayColWidth;
 
       const actualDifference = differenceFromStartDate - 1;
@@ -140,9 +120,41 @@ const EventItem: React.FC<any> = ({
 
       const draggedEndDate = endDate.add(actualDifference, "day");
 
-      onResize({ id: data.id, newDate: draggedEndDate });
+      onResize({ id: row.id, newDate: draggedEndDate });
     }
   };
+  useEffect(() => {
+    console.log('Setting up ResizeObserver');
+    const resizeObserver = new ResizeObserver((entries) => {
+      console.log('ResizeObserver callback');
+      for (const entry of entries) {
+        console.log('Resized:', entry.contentRect.width);
+        setDragWidth(entry.contentRect.width);
+      }
+    });
+  
+    if (resizeRef.current) {
+      console.log('Observing element');
+      resizeObserver.observe(resizeRef.current);
+    } else {
+      console.log('resizeRef.current is null');
+    }
+  
+    return () => {
+      console.log('Disconnecting ResizeObserver');
+      resizeObserver.disconnect();
+    };
+  }, []);
+  useEffect(() => {
+    const handleResize = () => {
+      console.log('Window resized');
+    };
+  
+    window.addEventListener('resize', handleResize);
+    return () => {
+      window.removeEventListener('resize', handleResize);
+    };
+  }, []);
   return (
     <div
       className="absolute z-20  "
@@ -151,7 +163,7 @@ const EventItem: React.FC<any> = ({
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       style={{
-        width: gridSize * eventLength,
+        // width: gridSize * eventLength,
         height: gridHeight - 10,
         left: position.left,
         borderRadius: 6,
@@ -164,6 +176,7 @@ const EventItem: React.FC<any> = ({
           resizabe ? "resize-x z-40" : "z-20"
         } `}
         onMouseEnter={onMouseEnter}
+        ref={resizeRef}
         onMouseLeave={onMouseLeave}
         style={{
           width: gridSize * eventLength - 2,
