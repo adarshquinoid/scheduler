@@ -18,7 +18,7 @@ import MonthYearRenderer from "./sections/yearView/MonthYearRenderer";
 
 const Calandar = forwardRef<CalendarRef, CalendarProps>(
   ({  onResize, onDragEnd }, ref) => {
-    const {data,groups}=useScheduler()
+
     const monthYearRendererRef = useRef<MonthYearRendererRef>(null);
     const dateRendererRef = useRef<DateRendererRef>(null);
     const dateYearBodyRef = useRef<DateYearBodyRef>(null);
