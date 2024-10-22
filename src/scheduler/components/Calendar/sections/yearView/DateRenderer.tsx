@@ -23,7 +23,9 @@ const DateRenderer = forwardRef<DateRendererRef, DateRendererProps>(
       });
     };
     useImperativeHandle(ref, () => ({
-      onClick: () => {},
+      navigateToToday: () => {
+        navigateToToday()
+      },
     }));
     useEffect(() => {
       navigateToToday();

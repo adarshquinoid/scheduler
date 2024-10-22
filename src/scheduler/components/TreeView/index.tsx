@@ -5,10 +5,10 @@ import React, {
   useRef,
   useState,
 } from "react";
-import { TreeProps, TreeRef } from "../../types/common";
-import { Group } from "../../types/datastructure";
 import { styles } from "../../helpers/constants";
 import { useScheduler } from "../../providers/SchedulerProvider";
+import { TreeProps, TreeRef } from "../../types/common";
+import { Group } from "../../types/datastructure";
 // import { generateColumnHeight } from "../../helpers/utilities";
 
 function ChildRenderer({
@@ -18,6 +18,9 @@ function ChildRenderer({
   renderFunction,
   handleExpand,
   renderColumns,
+  generateIcons,
+  itemStartIcon,
+  itemEndIcon,
 }: any) {
   let Level = level + 1;
   if (groups.length !== null) {
@@ -39,7 +42,14 @@ function ChildRenderer({
                     level === 1 ? "first-level" : "inner-level"
                   }`}
                 >
+                  {item.hasChild ? (
+                    <div>{generateIcons(item)}</div>
+                  ) : (
+                    <div>{itemStartIcon}</div>
+                  )}
                   <div>{item.name}</div>
+                  {!item.hasChild && <div>{itemEndIcon}</div>}
+
                   {renderColumns()}
                 </div>
                 <div>{renderFunction(item, Level)}</div>
@@ -54,8 +64,18 @@ function ChildRenderer({
   }
 }
 const TreeView = forwardRef<TreeRef, TreeProps>(
-  ({  handleExpand, treeHeader }, ref) => {
-    const {groups,data}=useScheduler()
+  (
+    {
+      handleExpand,
+      treeHeader,
+      collapseIcon,
+      expandIcon,
+      itemStartIcon,
+      itemEndIcon,
+    },
+    ref
+  ) => {
+    const { groups, data } = useScheduler();
     const contentRef = useRef<HTMLDivElement>(null);
     const [contentWidth, setContentWidth] = useState<number>(
       contentRef?.current?.clientWidth || 200
@@ -72,13 +92,18 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
             data={data}
             renderFunction={renderFunction}
             handleExpand={handleExpand}
+            generateIcons={generateIcons}
             renderColumns={renderColumns}
+            itemStartIcon={itemStartIcon}
+            itemEndIcon={itemEndIcon}
           />
         );
       }
       return null;
     };
-    const generateIcons = (item: Group) => {};
+    const generateIcons = (item: Group) => {
+      return <>{item.expand ? collapseIcon : expandIcon}</>;
+    };
 
     useEffect(() => {
       setContentWidth((contentRef?.current?.clientWidth || 199) + 1);
@@ -125,8 +150,13 @@ const TreeView = forwardRef<TreeRef, TreeProps>(
                       onClick={() => handleExpand(item)}
                       className="w-full text-left cursor-pointer  pl-5 tree-item flex items-center gap-2 relative tree-root"
                     >
-                      {/* <div>{generateIcons(item)}</div> */}
+                      {item?.hasChild ? (
+                        <div>{generateIcons(item)}</div>
+                      ) : (
+                        <div>{itemStartIcon}</div>
+                      )}
                       <div>{item.name}</div>
+                      {!item?.hasChild && <div>{itemEndIcon}</div>}
                       {renderColumns()}
                     </div>
 

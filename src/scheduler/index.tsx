@@ -1,14 +1,14 @@
-import React, { forwardRef, useImperativeHandle, useRef } from "react";
+import { forwardRef, useImperativeHandle, useRef } from "react";
 import Calandar from "./components/Calendar";
 import TopBar from "./components/Controlls/TopBar";
 import TreeView from "./components/TreeView";
+import { useScheduler } from "./providers/SchedulerProvider";
 import {
   CalendarRef,
   SchedulerProps,
   SchedulerRef,
   TreeRef,
 } from "./types/common";
-import { SchedulerProvider, useScheduler } from "./providers/SchedulerProvider";
 
 const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
   (
@@ -45,27 +45,31 @@ const Scheduler = forwardRef<SchedulerRef, SchedulerProps>(
         const scrollLeft = calendarContainerRef.current.scrollLeft;
         const scrollWidth = calendarContainerRef.current.scrollWidth;
         const clientWidth = calendarContainerRef.current.clientWidth;
-        const scrollPositionToRight = scrollWidth - (scrollLeft + clientWidth);
-        const scrollPositionBefore = scrollPositionToRight;
+        // const scrollPositionToRight = scrollWidth - (scrollLeft + clientWidth);
+        // const scrollPositionBefore = scrollPositionToRight;
         const threshold = 10;
-        if (scrollLeft === 0) {
-          calendarRef?.current?.loadPrevious();
-          setTimeout(() => {
-            if (calendarContainerRef.current) {
-              const newScrollWidth = calendarContainerRef.current.scrollWidth;
-              calendarContainerRef.current.scrollLeft =
-                newScrollWidth - clientWidth - scrollPositionBefore;
-            }
-          }, 0);
-        } else if (scrollLeft >= scrollWidth - clientWidth - threshold) {
+        // if (scrollLeft === 0) {
+        //   calendarRef?.current?.loadPrevious();
+        //   setTimeout(() => {
+        //     if (calendarContainerRef.current) {
+        //       const newScrollWidth = calendarContainerRef.current.scrollWidth;
+        //       calendarContainerRef.current.scrollLeft =
+        //         newScrollWidth - clientWidth - scrollPositionBefore;
+        //     }
+        //   }, 0);
+        // } else 
+        
+        if (scrollLeft >= scrollWidth - clientWidth - threshold) {
           calendarRef?.current?.loadNext();
         }
       }
     };
-    const scrollIntoView = () => {};
+    const scrollIntoView = () => {
+      calendarRef?.current?.navigateToToday()
+    };
     return (
       <>
-        {/* <TopBar navigateToday={scrollIntoView} /> */}
+        <TopBar navigateToday={scrollIntoView} />
         <div className="scheduler" id="scheduler" ref={schedulerRef}>
           <div
             className="tree-container"

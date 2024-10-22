@@ -61,9 +61,9 @@ function App() {
         <Scheduler
           handleExpand={handleExpand}
           expandIcon={<div>+</div>}
-          collapseIcon={<div>+</div>}
-          itemStartIcon={<div>:</div>}
-          itemEndIcon={<div>:</div>}
+          collapseIcon={<div>-</div>}
+          itemStartIcon={<div>&gt;</div>}
+          // itemEndIcon={<div>:</div>}
           onDragEnd={onDragEnd}
           onResize={onResize}
         />

@@ -2,6 +2,7 @@ import dayjs, { Dayjs } from "dayjs";
 import React, { useEffect, useRef, useState } from "react";
 import { dateFormat, styles } from "../../../../../helpers/constants";
 import { generateNewDateByDifference } from "../../../../../helpers/utilities";
+import { useScheduler } from "../../../../../providers/SchedulerProvider";
 
 const EventItem: React.FC<any> = ({
   gridSize,
@@ -14,9 +15,9 @@ const EventItem: React.FC<any> = ({
   //req
   onResize,
   onDragEnd,
-  row
-  
+  row,
 }) => {
+  const { groups } = useScheduler();
   const resizeRef = useRef<HTMLDivElement>(null);
   const [resizabe, setResizable] = useState<boolean>(false);
   const [position, setPosition] = useState({
@@ -76,19 +77,17 @@ const EventItem: React.FC<any> = ({
 
       const calculatedDifference = difference + (gridSize - mod);
 
-
       const newStartDate = generateNewDateByDifference(
         row?.start,
         action,
-        actualDifference>0?(calculatedDifference / gridSize)-1:(calculatedDifference / gridSize)
+        actualDifference > 0
+          ? calculatedDifference / gridSize - 1
+          : calculatedDifference / gridSize
       );
-      const newEndDate = dayjs(newStartDate).add(eventLength-1,"day")
+      const newEndDate = dayjs(newStartDate).add(eventLength - 1, "day");
 
-      
-      onDragEnd?.({start:newStartDate,end:newEndDate,row});
+      onDragEnd?.({ start: newStartDate, end: newEndDate, row });
     }
-
-   
   };
   useEffect(() => {
     setPosition({ top: groupIndex * gridHeight + 5, left: ind * gridSize });
@@ -104,7 +103,7 @@ const EventItem: React.FC<any> = ({
   };
   const onResizeEnd = () => {
     const newWidth = dragWidth;
-if (dragWidth !== calculatedWidth) {
+    if (dragWidth !== calculatedWidth) {
       const remainingWidtthToFill = newWidth % styles.dayColWidth;
       let eventWidth;
       if (remainingWidtthToFill !== 0) {
@@ -124,37 +123,54 @@ if (dragWidth !== calculatedWidth) {
     }
   };
   useEffect(() => {
-    console.log('Setting up ResizeObserver');
+
     const resizeObserver = new ResizeObserver((entries) => {
-      console.log('ResizeObserver callback');
+      console.log("ResizeObserver callback");
       for (const entry of entries) {
-        console.log('Resized:', entry.contentRect.width);
+        console.log("Resized:", entry.contentRect.width);
         setDragWidth(entry.contentRect.width);
       }
     });
-  
+
     if (resizeRef.current) {
-      console.log('Observing element');
+      console.log("Observing element");
       resizeObserver.observe(resizeRef.current);
     } else {
-      console.log('resizeRef.current is null');
+      console.log("resizeRef.current is null");
     }
-  
+
     return () => {
-      console.log('Disconnecting ResizeObserver');
+      console.log("Disconnecting ResizeObserver");
       resizeObserver.disconnect();
     };
   }, []);
   useEffect(() => {
     const handleResize = () => {
-      console.log('Window resized');
+      console.log("Window resized");
     };
-  
-    window.addEventListener('resize', handleResize);
+
+    window.addEventListener("resize", handleResize);
     return () => {
-      window.removeEventListener('resize', handleResize);
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
+  const isViable = () => {
+    const eventGroup = groups[groupIndex];
+    const parentIndex = groups.findIndex(
+      (grp: any) => grp.id === eventGroup["parent"]
+    );
+    return groups[parentIndex].expand;
+
+
+  };
+
+  const eventNameGen=()=>{
+    return data.map((person:any) => person.name).toString();
+   }
+   const getEventNameContainerWidth=()=>{
+
+    return (gridSize * eventLength - 2)-(data?.length > 3 ? 64 : (data?.length / 3) * 64)-20
+   }
   return (
     <div
       className="absolute z-20  "
@@ -163,6 +179,7 @@ if (dragWidth !== calculatedWidth) {
       onDrag={handleDrag}
       onDragEnd={handleDragEnd}
       style={{
+        display: isViable() ? "block" : "none",
         // width: gridSize * eventLength,
         height: gridHeight - 10,
         left: position.left,
@@ -199,7 +216,7 @@ if (dragWidth !== calculatedWidth) {
                   className=" flex justify-center items-center absolute w-8 h-8 rounded-full bg-black bg-opacity-50 text-white"
                   style={{ left: `0px`, zIndex: 99 }}
                 >
-                  {data?.length - 3}
+                  {`+${data?.length - 3}`}
                 </div>
               )}
               {data?.map((item: any, index: number) => {
@@ -231,12 +248,10 @@ if (dragWidth !== calculatedWidth) {
               left: data?.length > 3 ? 64 + 8 : (data?.length / 3) * 64 + 8,
             }}
           >
-            {data?.map((item: any, i: number) => (
-              <>
-                {i !== 0 && <div>{","}</div>}
-                <div>{item?.name}</div>
-              </>
-            ))}
+          
+                <p style={{width:getEventNameContainerWidth()}} className="truncate pl-2">{eventNameGen()}</p>
+              
+       
           </div>
         </div>
         {/* /// */}

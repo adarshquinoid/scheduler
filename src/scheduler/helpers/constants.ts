@@ -33,9 +33,14 @@ export const styles = {
 } as const;
 
 export const modes = {
-  YEAR: { label: "Year", id: "YEAR" },
-  MONTH: { label: "Month", id: "MONTH" },
+
+  DAY: { label: "Day", id: "DAY" },
   WEEK: { label: "Week", id: "WEEK" },
+  MONTH: { label: "Month", id: "MONTH" },
+  QUARTER: { label: "Quarter", id: "QUARTER" },
+  YEAR: { label: "Year", id: "YEAR" },
+
+
 
 } as const;
 

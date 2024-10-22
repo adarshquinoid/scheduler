@@ -5,6 +5,7 @@ import {
   calculateDateDifference,
   createDateRange,
 } from "../../../../helpers/utilities";
+import { useScheduler } from "../../../../providers/SchedulerProvider";
 import {
   DateYearBodyProps,
   DateYearBodyRef
@@ -14,7 +15,6 @@ import EventGroups from "./events/eventGroups";
 import EventItem from "./events/eventItem";
 import HolidayColumnRender from "./events/holidayColumn";
 import TodayIndicator from "./events/todayIndicator";
-import { useScheduler } from "../../../../providers/SchedulerProvider";
 
 const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
   ({ flattenedDates,  onResize, onDragEnd }, ref) => {
@@ -119,7 +119,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
       return (
         <>
           {vesselEvents?.map((item: any) => (
-            <EventGroups {...item} />
+            <EventGroups {...item} from={"vessel"} />
           ))}
         </>
       );
@@ -169,7 +169,7 @@ const DateYearBody = forwardRef<DateYearBodyRef, DateYearBodyProps>(
       return (
         <>
           {tenentEvents?.map((item: any) => (
-            <EventGroups {...item} />
+            <EventGroups {...item} from={"tenent"}/>
           ))}
         </>
       );

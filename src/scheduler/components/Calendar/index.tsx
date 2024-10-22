@@ -26,7 +26,7 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
     const todayYear = today.getFullYear();
 
     const [loadedYears, setLoadedYears] = useState([
-      todayYear - 1,
+      // todayYear - 1,
       todayYear,
       todayYear + 1,
     ]);
@@ -42,14 +42,17 @@ const Calandar = forwardRef<CalendarRef, CalendarProps>(
           return newYears;
         });
       },
-      loadPrevious: () => {
+      // loadPrevious: () => {
   //  return;
-        setLoadedYears((currentYears) => {
-          const newYears = [...currentYears];
-          newYears.unshift(newYears[0] - 1);
-          return newYears;
-        });
-      },
+      //   setLoadedYears((currentYears) => {
+      //     const newYears = [...currentYears];
+      //     newYears.unshift(newYears[0] - 1);
+      //     return newYears;
+      //   });
+      // },
+      navigateToToday:()=>{
+        dateRendererRef?.current?.navigateToToday()
+      }
     }));
     const flattenedDates: any = Object.values(datesByYear).flatMap(
       (months: any) => Object.values(months).flat()
