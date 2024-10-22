@@ -123,7 +123,6 @@ const EventItem: React.FC<any> = ({
     }
   };
   useEffect(() => {
-
     const resizeObserver = new ResizeObserver((entries) => {
       console.log("ResizeObserver callback");
       for (const entry of entries) {
@@ -160,17 +159,43 @@ const EventItem: React.FC<any> = ({
       (grp: any) => grp.id === eventGroup["parent"]
     );
     return groups[parentIndex].expand;
-
-
   };
 
-  const eventNameGen=()=>{
-    return data.map((person:any) => person.name).toString();
-   }
-   const getEventNameContainerWidth=()=>{
-
-    return (gridSize * eventLength - 2)-(data?.length > 3 ? 64 : (data?.length / 3) * 64)-20
-   }
+  const eventNameGen = () => {
+    return data.map((person: any) => person.name).toString();
+  };
+  const getEventNameContainerWidth = () => {
+    return (
+      gridSize * eventLength -
+      2 -
+      (data?.length > 3 ? 64 : (data?.length / 3) * 64) -
+      20
+    );
+  };
+  function getFirstTwoCharsWithoutSpace(text:string) {
+    // Remove spaces from the text
+    const trimmedText = text.replace(/\s+/g, '');
+    
+    // Get the first two characters
+    return trimmedText.substring(0, 2).toUpperCase();
+}
+  const generateAvatar = (text:string) => {
+    return (
+      <svg height="32" width="32" xmlns="http://www.w3.org/2000/svg">
+        <circle r="16" cx="16" cy="16" fill="orange" />
+        <text
+          x="16"
+          y="16"
+          text-anchor="middle"
+          dominant-baseline="middle"
+          fill="white"
+          font-size="10"
+        >
+          {text}
+        </text>
+      </svg>
+    );
+  };
   return (
     <div
       className="absolute z-20  "
@@ -232,11 +257,7 @@ const EventItem: React.FC<any> = ({
                       zIndex: 3 - index,
                     }}
                   >
-                    <img
-                      src={item?.image}
-                      alt=""
-                      className=" w-8 h-8 rounded-full object-cover"
-                    />
+                    {generateAvatar(getFirstTwoCharsWithoutSpace(item?.name))}
                   </div>
                 );
               })}
@@ -248,10 +269,12 @@ const EventItem: React.FC<any> = ({
               left: data?.length > 3 ? 64 + 8 : (data?.length / 3) * 64 + 8,
             }}
           >
-          
-                <p style={{width:getEventNameContainerWidth()}} className="truncate pl-2">{eventNameGen()}</p>
-              
-       
+            <p
+              style={{ width: getEventNameContainerWidth() }}
+              className="truncate pl-2"
+            >
+              {eventNameGen()}
+            </p>
           </div>
         </div>
         {/* /// */}
