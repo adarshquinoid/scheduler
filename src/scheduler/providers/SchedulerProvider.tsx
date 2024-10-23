@@ -9,7 +9,7 @@ const SchedulerContext = createContext<SchedulerContextType | undefined>(
 export const SchedulerProvider: React.FC<{ children: ReactNode }> = ({
   children,
 }) => {
-  const [mode, setMode] = useState<SchedulerModes>(modes.YEAR);
+  const [mode, setMode] = useState<SchedulerModes>(modes.DAY);
   const [activeDragItem, setActiveDragItem] = useState<any>(null);
   const [eventData,setEventData]=useState<any>([])
   const [groups,setGroups]=useState<any>([])
